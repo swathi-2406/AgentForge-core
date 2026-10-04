@@ -29,7 +29,7 @@ def get_root() -> Path:
     return Path(env).resolve() if env else Path(__file__).resolve().parents[2]
 
 
-def resolve_filing_path(filing_id: str, root: Path | None = None) -> Path:
+def manifest_entry(filing_id: str, root: Path | None = None) -> dict:
     root = root or get_root()
     manifest = root / "data" / "contracts" / "manifest.yaml"
     if not manifest.exists():
@@ -38,7 +38,12 @@ def resolve_filing_path(filing_id: str, root: Path | None = None) -> Path:
     by_id = {e["id"]: e for e in entries}
     if filing_id not in by_id:
         raise ToolError(f"Unknown filing_id '{filing_id}'. Known: {', '.join(sorted(by_id))}")
-    rel = by_id[filing_id].get("local_path")
+    return by_id[filing_id]
+
+
+def resolve_filing_path(filing_id: str, root: Path | None = None) -> Path:
+    root = root or get_root()
+    rel = manifest_entry(filing_id, root).get("local_path")
     path = root / rel if rel else None
     if not path or not path.exists():
         raise ToolError(f"'{filing_id}' isn't downloaded yet. Run: python scripts/fetch_edgar_filing.py sync")
