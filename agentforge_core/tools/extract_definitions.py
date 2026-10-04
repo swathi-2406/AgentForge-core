@@ -1,19 +1,19 @@
-# """extract_definitions: every defined term, where it's defined, how often it's used, and near-misses.
+"""extract_definitions: every defined term, where it's defined, how often it's used, and near-misses.
 
-# Three kinds of definition:
-#     definitions_section   "Tax" or "Taxes" shall mean ...        (a definition at the start of a line)
-#     inline                ... (the "Lead Borrower") ...          (defined in passing)
-#     points_elsewhere      "Review Lease" has the meaning stated in Section 3.2.
+Three kinds of definition:
+    definitions_section   "Tax" or "Taxes" shall mean ...        (a definition at the start of a line)
+    inline                ... (the "Lead Borrower") ...          (defined in passing)
+    points_elsewhere      "Review Lease" has the meaning stated in Section 3.2.
 
-# Scope: a term whose definition points into ANOTHER document ("...in Section 1.01 of the Credit
-# Agreement") is scope="external". Terms never defined in this filing (Ford imports most of its terms
-# from Appendix 1) aren't in the map at all, so consistency checks only cover terms this filing owns.
+Scope: a term whose definition points into ANOTHER document ("...in Section 1.01 of the Credit
+Agreement") is scope="external". Terms never defined in this filing (Ford imports most of its terms
+from Appendix 1) aren't in the map at all, so consistency checks only cover terms this filing owns.
 
-# Near-misses are the mechanical part of a defined-term consistency check:
-#     spelling_variant  "Supplement Lease Rent"  vs  "Supplemental Lease Rent"   (high confidence)
-#     truncated         "Indenture Trustee"      vs  "Lease Indenture Trustee"   (medium)
-#     word_swap         "Review Receivable"      vs  "Review Lease"              (low: the agent must read it)
-# """
+Near-misses are the mechanical part of a defined-term consistency check:
+    spelling_variant  "Supplement Lease Rent"  vs  "Supplemental Lease Rent"   (high confidence)
+    truncated         "Indenture Trustee"      vs  "Lease Indenture Trustee"   (medium)
+    word_swap         "Review Receivable"      vs  "Review Lease"              (low: the agent must read it)
+"""
 
 from __future__ import annotations
 
