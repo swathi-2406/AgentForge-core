@@ -2,5 +2,6 @@
 .env
 __pycache__/
 data/traces/
+data/contracts/
 evals/reports/
 redteam/reports/
