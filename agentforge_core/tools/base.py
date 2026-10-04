@@ -1,4 +1,3 @@
-# """Base class and interface definitions shared by all tools."""
 # """Tool base class and registry: the one place planner and executor learn which tools exist.
 
 # Every tool:
@@ -17,6 +16,8 @@ from abc import ABC, abstractmethod
 from typing import Any, ClassVar
 
 from pydantic import BaseModel, ConfigDict
+
+from agentforge_core.tracing.tool_calls import traced
 
 
 class ToolInput(BaseModel):
@@ -82,6 +83,7 @@ def get_tool(name: str) -> type[Tool]:
         raise ToolError(f"Unknown tool '{name}'. Known tools: {known}") from None
 
 
+@traced
 def call_tool(name: str, args: dict[str, Any] | None = None) -> ToolOutput:
     """Look up a tool by name, validate args, run it, and check the output shape.
 
