@@ -5,3 +5,4 @@ data/traces/
 data/contracts/raw
 evals/reports/
 redteam/reports/
+.vscode/
