@@ -1,11 +1,11 @@
-"""read_document: turn a raw EDGAR exhibit into clean, section-addressable text.
+# """read_document: turn a raw EDGAR exhibit into clean, section-addressable text.
 
-Pipeline:  raw bytes -> plain text -> normalized lines -> heading candidates
-           -> drop table-of-contents duplicates -> sections
+# Pipeline:  raw bytes -> plain text -> normalized lines -> heading candidates
+#            -> drop table-of-contents duplicates -> sections
 
-Other tools reuse load_document(filing_id) directly, so a 2 MB filing is parsed
-once per process (cached by file path + modified time).
-"""
+# Other tools reuse load_document(filing_id) directly, so a 2 MB filing is parsed
+# once per process (cached by file path + modified time).
+# """
 
 from __future__ import annotations
 
@@ -19,14 +19,11 @@ import yaml
 from bs4 import BeautifulSoup
 from pydantic import BaseModel, Field
 
+from agentforge_core.paths import get_root  # noqa: F401  (re-exported: other tools import it from here)
 from agentforge_core.tools.base import Tool, ToolError, ToolInput, ToolOutput, register_tool
 
 # ---------- where filings live ----------
 
-def get_root() -> Path:
-    """Repo root. AGENTFORGE_ROOT overrides it (tests use this)."""
-    env = os.getenv("AGENTFORGE_ROOT")
-    return Path(env).resolve() if env else Path(__file__).resolve().parents[2]
 
 
 def manifest_entry(filing_id: str, root: Path | None = None) -> dict:
