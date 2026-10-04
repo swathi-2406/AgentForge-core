@@ -1,1 +1,6 @@
 # Files and directories excluded from version control.
+.env
+__pycache__/
+data/traces/
+evals/reports/
+redteam/reports/
