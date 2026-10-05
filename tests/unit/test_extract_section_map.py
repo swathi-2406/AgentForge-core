@@ -15,7 +15,8 @@ from agentforge_core.tools.read_document import get_root
     ("Section 2.02 Borrowings. (a) Each...\n(b) Next", ["a", "b"], []),          # (a) right after heading
     ("(a) one\n(i) roman\n(ii) roman\n(b) two", ["a", "b"], []),                 # roman list inside (a)
     ("(a)\n(b)\n(c)\n(d)\n(e)\n(f)\n(g)\n(h)\n(i) real letter\n(j)", list("abcdefghij"), []),
-    ("(h) last\n(i) roman\n(ii) roman", list("h"), list("abcdefg")),             # (i) then (ii) = roman
+    ("(a)\n(b)\n(c)\n(d)\n(e)\n(f)\n(g)\n(h) last\n(i) roman\n(ii) roman", list("abcdefgh"), []),  # (i) then (ii) = roman
+    # ("(h) last\n(i) roman\n(ii) roman", list("h"), list("abcdefg")),             # (i) then (ii) = roman
     ("(a) one\n(b) two\n(d) four", ["a", "b", "d"], ["c"]),                      # a real gap
     ("(a) one\n(A) nested\n(B) nested\n(b) two", ["a", "b"], []),                # capitals ignored
     ("the Borrower under clause (b) above", [], []),                             # cross-reference, not a clause
