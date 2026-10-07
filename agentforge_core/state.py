@@ -20,6 +20,8 @@ from typing import Any, Literal
 import yaml
 from pydantic import BaseModel, ConfigDict, Field, field_validator, model_validator
 
+from agentforge_core.plan import PlannedStep
+
 MANIFEST_PATH = Path(__file__).resolve().parents[1] / "data" / "contracts" / "manifest.yaml"
 
 Status = Literal["pending", "running", "succeeded", "failed"]
@@ -42,7 +44,8 @@ class State(BaseModel):
 
     task: str = Field(min_length=1, description="The checking task, in plain English.")
     contract_refs: list[str] = Field(min_length=1, description="Manifest ids of the filings in play.")
-    plan: list[dict[str, Any]] = Field(default_factory=list, description="Ordered planned steps, each with a step_id.")
+    plan: list[PlannedStep] = Field(default_factory=list)
+    # plan: list[dict[str, Any]] = Field(default_factory=list, description="Ordered planned steps, each with a step_id.")
     completed_steps: list[int] = Field(default_factory=list, description="step_ids that finished, in order.")
     last_observation: dict[str, Any] | None = Field(default=None, description="Raw result of the latest tool call.")
     retry_count: int = Field(default=0, ge=0, description="Retries used so far in this task.")
@@ -61,7 +64,8 @@ class State(BaseModel):
 
     @model_validator(mode="after")
     def completed_steps_are_planned(self) -> State:
-        planned = {step.get("step_id") for step in self.plan}
+        planned = {step.step_id for step in self.plan}
+        # planned = {step.get("step_id") for step in self.plan}
         stray = [s for s in self.completed_steps if s not in planned]
         if stray:
             raise ValueError(f"completed_steps {stray} are not step_ids in the plan")
