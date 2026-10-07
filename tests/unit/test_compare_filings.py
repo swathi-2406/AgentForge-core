@@ -226,6 +226,7 @@ def _real():
 REAL = {"original_id": "redwire_credit_original", "amendment_id": "redwire_credit_amend1"}
 
 
+@pytest.mark.slow
 def test_real_redwire_targeted():
     _real()
     out = call_tool("compare_amended_clauses", REAL)
@@ -236,6 +237,7 @@ def test_real_redwire_targeted():
     assert any(f.ref == "7.11" and not f.in_original for f in out.internal_flags)
 
 
+@pytest.mark.slow
 def test_real_redwire_naive_is_noisy():
     _real()
     out = call_tool("diff_filings", REAL)

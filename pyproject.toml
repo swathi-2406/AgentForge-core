@@ -1,1 +1,5 @@
 # Build system and project metadata for AgentForge Core.
+
+[tool.pytest.ini_options]
+pythonpath = ["."]
+markers = ["slow: uses real filings, takes about a minute"]
