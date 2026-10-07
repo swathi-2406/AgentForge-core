@@ -1,35 +1,42 @@
-# """Task planning logic that decomposes a request into executable steps."""
-# """Planner: task + filing ids  ->  messages  ->  (task 3) LLM  ->  Plan.
+# """Planner: task + filing ids  ->  messages  ->  LLM  ->  validated Plan.
 
-#     build_messages(task, filing_ids)
-#       ├── system:  role · rules · tool menu (built from REGISTRY, never hand-typed)
-#       └── user:    task text · filing ids with their role (original / amendment)
+#     make_plan(task, filing_ids)
+#       ├── build_messages()     system (rules + tool menu) · user (task + ids)
+#       ├── structured_call()    LLM, validated against Plan, 1 retry on bad output
+#       └── PlanResult           plan + CallRecord + prompt version
 
 # The planner never sees document text, only filing ids. That keeps the prompt
 # small and means nothing inside a contract can steer the plan (Sprint 4).
 
-# Preview the exact prompt without calling any LLM:
-#     python -m agentforge_core.planner "Check for dangling cross-references" tva_facility_lease
+#     python -m agentforge_core.planner "<task>" <filing_id> ...         preview, free
+#     python -m agentforge_core.planner --run "<task>" <filing_id> ...   real call, saves
 # """
 
 from __future__ import annotations
 
+import argparse
 import json
-import sys
+import re
+from datetime import datetime, timezone
 from functools import lru_cache
 from pathlib import Path
 from typing import Any
 
 import yaml
+from instructor.core import InstructorRetryException
+from pydantic import BaseModel, ConfigDict
 
-from agentforge_core.plan import MAX_STEPS, planner_tool_names
+from agentforge_core.llm import structured_call
+from agentforge_core.plan import MAX_STEPS, Plan, planner_tool_names
 from agentforge_core.tools import REGISTRY
 
 # Bump whenever SYSTEM_TEMPLATE or the menu format changes. Logged with every
 # plan, so traces from different prompt versions can be told apart in Tune.
 PROMPT_VERSION = "planner-v1"
 
-MANIFEST_PATH = Path(__file__).resolve().parents[1] / "data" / "contracts" / "manifest.yaml"
+ROOT = Path(__file__).resolve().parents[1]
+MANIFEST_PATH = ROOT / "data" / "contracts" / "manifest.yaml"
+PLANS_DIR = ROOT / "data" / "plans"
 
 
 class PlannerError(Exception):
@@ -143,13 +150,74 @@ def build_messages(task: str, filing_ids: list[str]) -> list[dict[str, str]]:
     return [{"role": "system", "content": system}, {"role": "user", "content": user}]
 
 
-# ---------------------------------------------------------------- preview
+# ---------------------------------------------------------------- the call
 
-def _preview(argv: list[str]) -> None:
-    if len(argv) < 2:
-        print('usage: python -m agentforge_core.planner "<task>" <filing_id> [<filing_id> ...]')
-        raise SystemExit(2)
-    msgs = build_messages(argv[0], argv[1:])
+class PlanResult(BaseModel):
+    """A plan plus everything needed to trust and reproduce it later."""
+
+    model_config = ConfigDict(extra="forbid")
+
+    task: str
+    filing_ids: list[str]
+    prompt_version: str
+    plan: Plan
+    call: dict[str, Any]  # CallRecord.as_dict(): model, tokens, latency, timestamp
+
+
+def _last_error(e: InstructorRetryException) -> str:
+    """The validation error from the final attempt, in one readable string."""
+    attempts = getattr(e, "failed_attempts", None) or []
+    if attempts and getattr(attempts[-1], "exception", None) is not None:
+        return str(attempts[-1].exception)
+    return str(e)
+
+
+def make_plan(task: str, filing_ids: list[str], *, client: Any = None) -> PlanResult:
+    """Ask the LLM for a plan. Returns a valid PlanResult or raises PlannerError.
+
+    Two levels of failure, handled differently:
+      bad input (empty task, unknown filing)  -> PlannerError before any LLM call
+      bad output twice (invalid plan)          -> PlannerError with the last reason
+    Network and config errors pass through unchanged, so they aren't mistaken
+    for planning failures.
+    """
+    messages = build_messages(task, filing_ids)
+    try:
+        plan, record = structured_call(
+            messages,
+            Plan,
+            max_retries=1,
+            validation_context={"filing_ids": set(filing_ids)},
+            client=client,
+        )
+    except InstructorRetryException as e:
+        raise PlannerError(
+            f"No valid plan after {getattr(e, 'n_attempts', 2)} attempts. "
+            f"Last problem: {_last_error(e)}"
+        ) from e
+    return PlanResult(
+        task=task.strip(),
+        filing_ids=list(filing_ids),
+        prompt_version=PROMPT_VERSION,
+        plan=plan,
+        call=record.as_dict(),
+    )
+
+
+def save_plan(result: PlanResult, out_dir: Path = PLANS_DIR) -> Path:
+    """data/plans/20261007T142233Z_tva_facility_lease.json"""
+    out_dir.mkdir(parents=True, exist_ok=True)
+    stamp = datetime.now(timezone.utc).strftime("%Y%m%dT%H%M%SZ")
+    slug = re.sub(r"[^a-z0-9_]+", "_", result.filing_ids[0].lower())
+    path = out_dir / f"{stamp}_{slug}.json"
+    path.write_text(result.model_dump_json(indent=2), encoding="utf-8")
+    return path
+
+
+# ---------------------------------------------------------------- CLI
+
+def _show_prompt(task: str, filing_ids: list[str]) -> None:
+    msgs = build_messages(task, filing_ids)
     for m in msgs:
         print(f"===== {m['role'].upper()} =====\n{m['content']}\n")
     chars = sum(len(m["content"]) for m in msgs)
@@ -157,5 +225,43 @@ def _preview(argv: list[str]) -> None:
           f"~{chars // 4} tokens =====")
 
 
+def _show_plan(result: PlanResult, path: Path) -> None:
+    from rich.console import Console
+    from rich.table import Table
+
+    table = Table(title=f"Plan for: {result.task}", show_lines=True)
+    table.add_column("#", justify="right")
+    table.add_column("tool")
+    table.add_column("args")
+    table.add_column("expected outcome")
+    for st in result.plan.steps:
+        table.add_row(str(st.step_id), st.tool_name,
+                      json.dumps(st.tool_args), st.expected_outcome)
+    c = result.call
+    con = Console()
+    con.print(table)
+    con.print(f"[dim]{c['served_model']} · {c['prompt_tokens']}+{c['completion_tokens']} tokens "
+              f"· {c['latency_ms']} ms · {result.prompt_version}[/dim]")
+    con.print(f"[green]Saved:[/green] {path}")
+
+
+def main(argv: list[str] | None = None) -> None:
+    ap = argparse.ArgumentParser(prog="python -m agentforge_core.planner")
+    ap.add_argument("--run", action="store_true", help="call the LLM and save the plan")
+    ap.add_argument("task")
+    ap.add_argument("filing_ids", nargs="+")
+    args = ap.parse_args(argv)
+
+    if not args.run:
+        _show_prompt(args.task, args.filing_ids)
+        return
+    try:
+        result = make_plan(args.task, args.filing_ids)
+    except PlannerError as e:
+        print(f"PlannerError: {e}")
+        raise SystemExit(1)
+    _show_plan(result, save_plan(result))
+
+
 if __name__ == "__main__":
-    _preview(sys.argv[1:])
+    main()
