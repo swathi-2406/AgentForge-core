@@ -1,20 +1,20 @@
-"""Compare an amendment against the original agreement it amends.
+# """Compare an amendment against the original agreement it amends.
 
-    diff_filings              NAIVE     whole text vs whole text, line by line
-    compare_amended_clauses   TARGETED  only the clauses the amendment says it changes
+#     diff_filings              NAIVE     whole text vs whole text, line by line
+#     compare_amended_clauses   TARGETED  only the clauses the amendment says it changes
 
-Day 6 needs both. The naive tool is the first attempt that should fail the critic
-(hundreds of "differences", almost all restated boilerplate). The targeted tool is
-what retry.py switches to:
+# Day 6 needs both. The naive tool is the first attempt that should fail the critic
+# (hundreds of "differences", almost all restated boilerplate). The targeted tool is
+# what retry.py switches to:
 
-    amendment text
-      └── find directives   "Section 2.02(a) is amended and restated ... as follows:"
-            └── new text    the quoted replacement, up to the next directive
-                  └── original block   orig.section("2.02") -> clause (a)
-                        └── word diff after normalizing ("three (3)" == "three")
+#     amendment text
+#       └── find directives   "Section 2.02(a) is amended and restated ... as follows:"
+#             └── new text    the quoted replacement, up to the next directive
+#                   └── original block   orig.section("2.02") -> clause (a)
+#                         └── word diff after normalizing ("three (3)" == "three")
 
-No LLM here. Both tools are deterministic and free to run.
-"""
+# No LLM here. Both tools are deterministic and free to run.
+# """
 
 from __future__ import annotations
 
@@ -219,17 +219,34 @@ class ClauseChange(BaseModel):
     after: str
 
 
+FILLER = frozenset("a an the or and of to in on at by for any such each this that its their".split())
+LABEL_TOKEN = re.compile(r"^(?:[a-z]|[ivx]{1,5}|\d{1,2})$")
+
+
+def is_trivial(before: str, after: str) -> bool:
+    """Clause labels like (a)/(x), filler words, or singular/plural only. Not worth reporting."""
+    b, a = before.split(), after.split()
+    if len(b) == 1 and len(a) == 1 and (b[0] + "s" == a[0] or a[0] + "s" == b[0]):
+        return True
+    toks = b + a
+    return 0 < len(toks) <= 3 and all(t in FILLER or LABEL_TOKEN.match(t) for t in toks)
+
+
 def word_changes(old: str, new: str, limit: int, force: bool = False) -> tuple[list[ClauseChange], int, float, bool]:
     """(substantive changes, cosmetic differences, similarity, window_trimmed)"""
     a, trimmed = _window(tokens(old), tokens(new), force)
     b = tokens(new)
     sm = SequenceMatcher(None, a, b, autojunk=False)
-    changes = [ClauseChange(kind=t, before=_cut(" ".join(a[i1:i2]), 160), after=_cut(" ".join(b[j1:j2]), 160))
-               for t, i1, i2, j1, j2 in sm.get_opcodes() if t != "equal"]
+    all_changes = [(t, " ".join(a[i1:i2]), " ".join(b[j1:j2]))
+                   for t, i1, i2, j1, j2 in sm.get_opcodes() if t != "equal"]
+    real = [ClauseChange(kind=t, before=_cut(x, 160), after=_cut(y, 160))
+            for t, x, y in all_changes if not is_trivial(x, y)]
+    trivial = len(all_changes) - len(real)
     la, _ = _window(tokens(old, strict=False), tokens(new, strict=False), force)
     light = sum(1 for t, *_ in SequenceMatcher(None, la, tokens(new, strict=False), autojunk=False).get_opcodes()
                 if t != "equal")
-    return changes[:limit], max(0, light - len(changes)), round(sm.ratio(), 4), trimmed
+    cosmetic = max(0, light - len(all_changes)) + trivial
+    return real[:limit], cosmetic, round(sm.ratio(), 4), trimmed
 
 
 # ---- definitions (Section 1.01 "revised by inserting / restating definitions")

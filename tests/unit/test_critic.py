@@ -79,7 +79,7 @@ def test_ok_goes_to_llm_and_keeps_provenance():
                  llm=fake_llm(reply))
     assert isinstance(c, Critique)
     assert (c.verdict, c.source, c.step_id) == ("partial", "llm", 1)
-    assert c.prompt_version == "critic-v2" and c.call["served_model"] == "fake"
+    assert c.prompt_version == "critic-v3" and c.call["served_model"] == "fake"
 
 
 def test_prompt_has_task_expected_outcome_and_tagged_data():

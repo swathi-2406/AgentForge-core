@@ -33,7 +33,7 @@ from agentforge_core.executor import Observation
 from agentforge_core.llm import structured_call
 from agentforge_core.plan import PlannedStep
 
-PROMPT_VERSION = "critic-v2"
+PROMPT_VERSION = "critic-v3"
 Verdict = Literal["success", "partial", "failure"]
 
 MAX_LIST_ITEMS = 10
@@ -149,6 +149,10 @@ Return a verdict:
   ("three" vs "three (3)", boilerplate repeated in full) reported as differences or
   contradictions. Real signal is buried in false positives.
 - failure: the output does not serve the task at all, or clearly misses the expected outcome.
+
+Partial vs success: partial is for when noise DOMINATES and the real signal is hard to find.
+If the real results are clearly identifiable and only a few items are minor noise, that is
+success. Don't demand perfection: an output a careful reviewer could act on is success.
 
 Rules:
 - Judge usefulness for the TASK, not only literal match with the expected outcome. A step

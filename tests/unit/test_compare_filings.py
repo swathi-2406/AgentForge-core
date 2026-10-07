@@ -154,6 +154,15 @@ def test_rewording_is_not_a_change(docs):
     assert c.status == "unchanged"
 
 
+@pytest.mark.parametrize("before,after,want", [
+    ("", "x", True), ("a", "i", True), ("", "or", True), ("day", "days", True),
+    ("", "a i or", True), ("rate", "", False), ("three", "one", False),
+    ("", "one business day prior to the first amendment effective date", False),
+])
+def test_trivial_changes(before, after, want):
+    assert cf.is_trivial(before, after) is want
+
+
 def test_restated_from_parent_level(docs):
     c = by_ref(call_tool("compare_amended_clauses", docs))["2.01(a)(i)"]
     assert c.located_by == "clause"
