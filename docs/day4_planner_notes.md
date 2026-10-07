@@ -1,0 +1,5 @@
+# Day 4: planner notes (planner-v1, deepseek-flash, 2026-10-07)
+
+- **Core tool always present:** 6/6 plans (3 TVA cross-reference, 3 Ford defined-terms) were valid on the first attempt, and every plan included the task's core tool with correct args (`extract_cross_references` for TVA, `extract_definitions` with `only_issues: true` for Ford).
+- **Variance at temperature 0:** 3 different plans in 3 runs for both tasks. The differences were only in extra steps: repeated tool calls, a full `read_document`, and once an off-task `extract_cross_references` in the Ford plan. Day 9 should run each task more than once or report the spread.
+- **Deferred to Day 9:** tightening the prompt against redundant and off-task steps (`planner-v2`), measured by step-efficiency before and after. Total cost for the day: ~14,000 tokens.
