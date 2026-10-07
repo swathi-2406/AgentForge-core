@@ -104,7 +104,7 @@ class ExtractSectionMapOutput(ToolOutput):
 class ExtractSectionMap(Tool):
     name = "extract_section_map"
     description = ("List every article, section and schedule that exists in a filing, with its heading "
-                   "and its lettered subsections, e.g. 13.2 -> [a, b, c, d, e].")
+                   "and its lettered subsections, e.g. 4.1 -> [a, b, c].")
     Input = ExtractSectionMapInput
     Output = ExtractSectionMapOutput
 

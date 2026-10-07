@@ -452,7 +452,7 @@ class ExtractDefinitionsOutput(ToolOutput):
 class ExtractDefinitions(Tool):
     name = "extract_definitions"
     description = ("Map every defined term in a filing (definitions section and inline), with usage counts, "
-                   "and flag near-miss phrases like 'Supplement Lease Rent' vs the defined 'Supplemental Lease Rent'.")
+                   "and flag near-miss phrases like 'Lease Payment' vs the defined 'Lease Payments'.")
     Input = ExtractDefinitionsInput
     Output = ExtractDefinitionsOutput
 

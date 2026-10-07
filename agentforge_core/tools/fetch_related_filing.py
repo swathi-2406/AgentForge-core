@@ -51,8 +51,7 @@ class FetchRelatedFilingOutput(ToolOutput):
 @register_tool
 class FetchRelatedFiling(Tool):
     name = "fetch_related_filing"
-    description = ("For an amendment, load the original agreement it amends (from the manifest link, or an EDGAR "
-                   "URL you give). Returns the original's filing_id so other tools can read it. EDGAR URLs only.")
+    description = ("For an amendment, load the original agreement it amends. Usually needs only filing_id, since the manifest already links the original. Returns the original's filing_id so other tools can read it. EDGAR URLs only.")
     Input = FetchRelatedFilingInput
     Output = FetchRelatedFilingOutput
 
