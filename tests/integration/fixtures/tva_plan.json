@@ -1,0 +1,46 @@
+{
+  "task": "Check this contract for cross-references to sections that don't exist.",
+  "filing_ids": [
+    "tva_facility_lease"
+  ],
+  "prompt_version": "planner-v1",
+  "plan": {
+    "steps": [
+      {
+        "step_id": 1,
+        "tool_name": "extract_section_map",
+        "tool_args": {
+          "filing_id": "tva_facility_lease"
+        },
+        "expected_outcome": "A section map for tva_facility_lease with section_count greater than 0 and entries listing the existing articles, sections and schedules."
+      },
+      {
+        "step_id": 2,
+        "tool_name": "extract_cross_references",
+        "tool_args": {
+          "filing_id": "tva_facility_lease",
+          "only_problems": true
+        },
+        "expected_outcome": "A reference list for tva_facility_lease containing only missing_* and unverified entries, with counts reported alongside total."
+      },
+      {
+        "step_id": 3,
+        "tool_name": "read_document",
+        "tool_args": {
+          "filing_id": "tva_facility_lease"
+        },
+        "expected_outcome": "The tva_facility_lease text split into numbered sections with total_sections greater than 0, so each broken reference can be matched to its surrounding section."
+      }
+    ]
+  },
+  "call": {
+    "profile": "deepseek",
+    "requested_model": "deepseek-flash",
+    "served_model": "deepseek-flash",
+    "called_at_utc": "2026-10-07T14:45:50+00:00",
+    "latency_ms": 2204,
+    "prompt_tokens": 1976,
+    "completion_tokens": 348,
+    "training_data_ok": true
+  }
+}
