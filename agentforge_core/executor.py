@@ -13,6 +13,8 @@
 #   - execute_step never raises. Every outcome comes back as an Observation.
 #   - Tools are called ONLY through call_tool, so the Day 2 @traced log keeps working.
 #   - No LLM here. This file costs nothing to run.
+#   - execute_step() is trace-free. execute_and_record() is the same step inside a run:
+#     its tool calls get tagged with run_id/step_id and the step lands in the run trace.
 # """
 
 from __future__ import annotations
@@ -25,6 +27,8 @@ from pydantic import BaseModel, ConfigDict, Field, ValidationError, model_valida
 
 from agentforge_core.plan import PlannedStep
 from agentforge_core.tools import REGISTRY, call_tool
+from agentforge_core.tracing import trace_writer
+from agentforge_core.tracing.tool_calls import trace_context
 
 Status = Literal["ok", "empty", "error"]
 ErrorKind = Literal["bad_args", "tool_failed"]
@@ -167,6 +171,17 @@ def execute_step(step: PlannedStep) -> Observation:
     return Observation(step_id=step.step_id, tool_name=step.tool_name, tool_args=args, status=status,
                        raw_output=output, success_flag_from_tool=(status == "ok"), latency_ms=_ms_since(start),
                        empty_reason=reason, started_at=started_at)
+
+
+def execute_and_record(run_id: str, step: PlannedStep, attempt: int = 1) -> Observation:
+    """Run one step inside a run: tag its tool calls, then save the step to the run trace.
+
+    This is what the orchestrator calls. execute_step stays trace-free for unit tests.
+    """
+    with trace_context(run_id=run_id, step_id=str(step.step_id)):
+        obs = execute_step(step)
+    trace_writer.record_step(run_id, step, obs, attempt=attempt)
+    return obs
 
 
 def _ms_since(start: float) -> float:
