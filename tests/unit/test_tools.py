@@ -27,15 +27,17 @@ def minimal_args(tool: str, filing_id: str) -> dict:
 
 # ---------- registry and schemas ----------
 
-def test_exactly_the_seven_playbook_tools():
-    assert set(REGISTRY) == TOOLS
+def test_exactly_the_registered_tools():
+    assert set(REGISTRY) == TOOLS | {"diff_filings", "compare_amended_clauses"}
 
 
 @pytest.mark.parametrize("spec", list_tool_specs(), ids=lambda s: s["name"])
 def test_spec_ready_for_planner(spec):
     assert len(spec["description"]) >= 40
-    assert "filing_id" in spec["input_schema"]["properties"]
-    assert "filing_id" in spec["input_schema"].get("required", [])
+    props = spec["input_schema"]["properties"]
+    assert "filing_id" in props or {"original_id", "amendment_id"} <= set(props)
+    required = set(spec["input_schema"].get("required", []))
+    assert "filing_id" in required or {"original_id", "amendment_id"} <= required
     assert spec["input_schema"].get("additionalProperties") is False      # typos fail loudly
     assert len(json.dumps(spec)) < 20_000                                  # fits in a prompt
 

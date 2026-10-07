@@ -1,6 +1,8 @@
 """Tool implementations available to the executor."""
 """Importing this package registers every tool (each module runs its @register_tool)."""
 
+from agentforge_core.tools import compare_filings  # noqa: F401
+
 from agentforge_core.tools import (  # noqa: F401
     extract_cross_references,
     extract_dates,

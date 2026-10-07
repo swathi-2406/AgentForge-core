@@ -115,6 +115,18 @@ def _fetch_related(out: dict, args: dict) -> Optional[str]:
     return None
 
 
+def _diff(out: dict, args: dict) -> Optional[str]:
+    if out.get("amendment_sentences", 0) == 0:
+        return "no sentences could be read from the amendment"
+    return None
+
+
+def _compare(out: dict, args: dict) -> Optional[str]:
+    if out.get("total_directives", 0) == 0:
+        return "no 'Section X is amended' directives found in the amendment"
+    return None
+
+
 EMPTY_RULES: dict[str, EmptyRule] = {
     "read_document": _read_document,
     "extract_section_map": _section_map,
@@ -122,6 +134,8 @@ EMPTY_RULES: dict[str, EmptyRule] = {
     "extract_cross_references": _cross_refs,
     "extract_dates": _dates,
     "fetch_related_filing": _fetch_related,
+    "diff_filings": _diff,
+    "compare_amended_clauses": _compare,
     # flag_inconsistency writes a finding; it can't come back "empty".
 }
 NO_EMPTY_RULE = frozenset({"flag_inconsistency"})

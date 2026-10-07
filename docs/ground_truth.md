@@ -33,6 +33,7 @@ Status: `verified` = re-read in the filing · `to-check` = not yet re-read · `o
 | RWO-3 | §1.01 | defined_term | "Securitization Repurchasing Obligations" (1 use); the defined term is "Securitization Repurchase Obligation". | 2 | verified |
 
 ## redwire_credit_amend1 (hard, amendment)
+   | RWA-4 | §1.01 (ii) | defined_term | Amendment "amends and restates" "Lenders", but the original §1.01 defines only "Lender" (pointing to the preamble). After the amendment both terms exist. | 3 | verified |
 
 | ID | Location | Type | Finding | Tier | Status |
 |---|---|---|---|---|---|

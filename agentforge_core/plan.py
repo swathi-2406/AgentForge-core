@@ -117,10 +117,11 @@ class Plan(BaseModel):
         if not allowed:
             return self
         for s in self.steps:
-            fid = s.tool_args.get("filing_id")
-            if fid is not None and fid not in allowed:
+            for key in ("filing_id", "original_id", "amendment_id"):
+              fid = s.tool_args.get(key)
+              if fid is not None and fid not in allowed:
                 raise ValueError(
-                    f"step {s.step_id} uses filing_id '{fid}', but this task only "
+                    f"step {s.step_id} uses {key} '{fid}', but this task only "
                     f"covers: {', '.join(sorted(allowed))}"
                 )
         return self

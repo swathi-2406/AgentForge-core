@@ -19,6 +19,7 @@ from agentforge_core.tools.base import (
 def clean_registry():
     """Keep test tools out of the real registry."""
     saved = dict(base.REGISTRY)
+    base.REGISTRY.clear()
     yield
     base.REGISTRY.clear()
     base.REGISTRY.update(saved)
