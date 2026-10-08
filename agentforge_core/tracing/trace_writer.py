@@ -195,3 +195,33 @@ def latest_run_id() -> Optional[str]:
     with _connect() as con:
         row = con.execute("SELECT run_id FROM runs ORDER BY started_at DESC LIMIT 1").fetchone()
         return row[0] if row else None
+
+
+# ---------- Day 6: events (critique, retry, finding, give_up) ----------
+
+EVENTS_DDL = ("CREATE TABLE IF NOT EXISTS events (run_id TEXT, at TEXT, kind TEXT, "
+              "step_id INTEGER, attempt INTEGER, payload TEXT)")
+
+
+def record_event(run_id: str, kind: str, payload: dict[str, Any]) -> None:
+    """Append one event to the run's JSON (under "events") and to the SQLite events table.
+
+    Same rule as record_step: tracing must never crash a run, so failures only log a warning.
+    """
+    try:
+        at = _now()
+        path = run_json_path(run_id)
+        data = json.loads(path.read_text(encoding="utf-8"))
+        data.setdefault("events", []).append({"at": at, "kind": kind, **payload})
+        _write_json(path, data)
+        with _connect() as con, con:
+            con.execute(EVENTS_DDL)
+            con.execute("INSERT INTO events VALUES (?, ?, ?, ?, ?, ?)",
+                        (run_id, at, kind, payload.get("step_id"), payload.get("attempt"),
+                         json.dumps(payload, default=str)))
+    except Exception:  # noqa: BLE001
+        log.warning("trace_writer: could not record %s event for run %s", kind, run_id, exc_info=True)
+
+
+def read_events(run_id: str) -> list[dict[str, Any]]:
+    return read_run(run_id).get("events", [])
