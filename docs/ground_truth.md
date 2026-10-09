@@ -15,6 +15,7 @@ Status: `verified` = re-read in the filing · `to-check` = not yet re-read · `o
 | TVA-2 | §4.1 | list_numbering | Roman list jumps from (iv) to (vi); no (v) in the section. | 1 | verified |
 | TVA-3 | §13.2 | defined_term | "Supplement Lease Rent" (1 use); the defined term is "Supplemental Lease Rent" (§3.3, 29 uses). | 2 | verified |
 | TVA-4 | §3.3 | defined_term | "Indenture Trustee" (2 uses); the defined term is "Lease Indenture Trustee". | 2 | verified |
+| TVA-6 | Appendix A ("Excepted Payments") | list_numbering | Top-level list (a)–(f) ends with "(vii)" instead of "(g)"; (a) has its own (i)(ii) sub-list, so (vii) continues neither. | 1 | verified |
 
 ## ford_arr_2026b (medium)
 

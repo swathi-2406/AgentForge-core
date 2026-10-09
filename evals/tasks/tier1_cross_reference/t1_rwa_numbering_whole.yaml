@@ -1,0 +1,15 @@
+   id: t1_rwa_numbering_whole
+   tier: 1
+   filings: [redwire_credit_amend1]
+   task: >-
+     Check this amendment's numbered and lettered lists for skipped or
+     out-of-sequence items.
+   scope: 'whole_document'
+   expected:
+     must_flag:
+       - type: [number_mismatch, other]
+         location: "1.03"
+     must_not_flag: []
+     max_extra_findings: 0
+   ground_truth_ref: [RWA-3]
+   optimal_steps: 2

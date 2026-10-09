@@ -1,0 +1,13 @@
+   id: t1_tva_dangling_3_4
+   tier: 1
+   filings: [tva_facility_lease]
+   task: >-
+     Check Section 3.4 of this lease for cross-references to sections
+     that don't exist.
+   scope: '3.4'
+   expected:
+     must_flag: []
+     must_not_flag: []
+     max_extra_findings: 0
+   ground_truth_ref: []
+   optimal_steps: 1

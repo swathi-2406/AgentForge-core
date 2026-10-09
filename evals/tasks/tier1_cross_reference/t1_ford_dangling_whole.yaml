@@ -1,0 +1,13 @@
+   id: t1_ford_dangling_whole
+   tier: 1
+   filings: [ford_arr_2026b]
+   task: >-
+     Check this agreement for cross-references to sections or schedules
+     that don't exist.
+   scope: 'whole_document'
+   expected:
+     must_flag: []
+     must_not_flag: []
+     max_extra_findings: 0
+   ground_truth_ref: []
+   optimal_steps: 1

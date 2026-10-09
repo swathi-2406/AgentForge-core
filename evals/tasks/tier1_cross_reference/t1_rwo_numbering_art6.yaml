@@ -1,0 +1,16 @@
+   id: t1_rwo_numbering_art6
+   tier: 1
+   filings: [redwire_credit_original]
+   task: >-
+     Check the numbered and lettered lists in Article VI of this credit
+     agreement for skipped or out-of-sequence items.
+   scope: 'Article VI'
+   expected:
+     must_flag: []
+     must_not_flag:
+       - location: "6.01"
+         mentions: ["(w)"]
+         reason: "Inline alternatives (w)(x)(y)(z), not a numbered list."
+     max_extra_findings: 0
+   ground_truth_ref: []
+   optimal_steps: 1

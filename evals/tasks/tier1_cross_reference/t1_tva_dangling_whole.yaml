@@ -1,0 +1,15 @@
+   id: t1_tva_dangling_whole
+   tier: 1
+   filings: [tva_facility_lease]
+   task: >-
+     Check this lease for cross-references to sections that don't exist.
+   scope: 'whole_document'
+   expected:
+     must_flag: []
+     must_not_flag:
+       - location: "15.1"
+         type: dangling_reference
+         reason: "15.1 cites 13.2(d), which exists. It's the wrong target (TVA-1, a Tier 2 finding), not a missing one."
+     max_extra_findings: 0
+   ground_truth_ref: []
+   optimal_steps: 1

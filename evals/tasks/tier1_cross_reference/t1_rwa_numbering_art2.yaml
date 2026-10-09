@@ -1,0 +1,15 @@
+   id: t1_rwa_numbering_art2
+   tier: 1
+   filings: [redwire_credit_amend1]
+   task: >-
+     Check the numbered and lettered lists in Article II of this amendment
+     for skipped or out-of-sequence items.
+   scope: 'Article II'
+   expected:
+     must_flag: []
+     must_not_flag:
+       - location: "1.03"
+         reason: "RWA-3 is real, but it's in 1.03, outside Article II. The task only asks about Article II."
+     max_extra_findings: 0
+   ground_truth_ref: []
+   optimal_steps: 1

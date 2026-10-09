@@ -1,0 +1,17 @@
+   id: t1_tva_numbering_whole
+   tier: 1
+   filings: [tva_facility_lease]
+   task: >-
+     Check this lease's numbered and lettered lists for skipped or
+     out-of-sequence items.
+   scope: 'whole_document'
+   expected:
+     must_flag:
+       - type: [number_mismatch, other]
+         location: "4.1"
+       - type: [number_mismatch, other]
+         location: "Appendix A"
+     must_not_flag: []
+     max_extra_findings: 0
+   ground_truth_ref: [TVA-2, TVA-6]
+   optimal_steps: 3

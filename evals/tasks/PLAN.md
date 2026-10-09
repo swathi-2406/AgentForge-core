@@ -11,7 +11,7 @@ Filings: TVA = tva_facility_lease · FORD = ford_arr_2026b · RWO = redwire_cred
 
 | # | id | Filing | Kind | Rows | Scope | Expect | Status |
 |---|---|---|---|---|---|---|---|
-| 1 | t1_tva_numbering_whole | TVA | real | TVA-2 | whole_document | flag 4.1 · [number_mismatch, other] | planned |
+| 1 | t1_tva_numbering_whole | TVA | real | TVA-2, TVA-6 | whole_document | flag 4.1 + Appendix A · [number_mismatch, other] | planned |
 | 2 | t1_rwo_dangling_whole | RWO | real | RWO-1 | whole_document | flag 1.01 · dangling_reference · trap: mentions Exhibit/Schedule (not filed) | planned |
 | 3 | t1_rwa_numbering_whole | RWA | real | RWA-3 | whole_document | flag 1.03 · [number_mismatch, other] | planned |
 | 4 | t1_tva_dangling_whole | TVA | clean | – | whole_document | nothing | planned |

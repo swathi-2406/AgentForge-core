@@ -1,0 +1,15 @@
+   id: t1_rwa_dangling_whole
+   tier: 1
+   filings: [redwire_credit_amend1]
+   task: >-
+     Check this amendment for cross-references to sections or schedules
+     that don't exist.
+   scope: 'whole_document'
+   expected:
+     must_flag: []
+     must_not_flag:
+       - mentions: ["Schedule I", "Schedule 1.01A"]
+         reason: "Schedules weren't filed on EDGAR with the amendment, which is normal."
+     max_extra_findings: 0
+   ground_truth_ref: []
+   optimal_steps: 1

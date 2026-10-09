@@ -1,0 +1,13 @@
+   id: t1_ford_dangling_sched_b
+   tier: 1
+   filings: [ford_arr_2026b]
+   task: >-
+     Check Schedule B of this agreement for cross-references to sections
+     or schedules that don't exist.
+   scope: 'Schedule B'
+   expected:
+     must_flag: []
+     must_not_flag: []
+     max_extra_findings: 0
+   ground_truth_ref: []
+   optimal_steps: 1

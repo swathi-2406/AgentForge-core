@@ -1,0 +1,17 @@
+   id: t1_rwo_dangling_2_05
+   tier: 1
+   filings: [redwire_credit_original]
+   task: >-
+     Check Section 2.05 of this credit agreement for cross-references to
+     sections or exhibits that don't exist.
+   scope: '2.05'
+   expected:
+     must_flag: []
+     must_not_flag:
+       - location: "1.01"
+         reason: "RWO-1 is real, but it's in 1.01, outside Section 2.05."
+       - mentions: ["Exhibit", "Schedule"]
+         reason: "Exhibits and schedules weren't filed on EDGAR, which is normal for credit agreements."
+     max_extra_findings: 0
+   ground_truth_ref: []
+   optimal_steps: 1

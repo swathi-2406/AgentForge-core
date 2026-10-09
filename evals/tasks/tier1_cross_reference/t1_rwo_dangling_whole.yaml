@@ -1,0 +1,17 @@
+   id: t1_rwo_dangling_whole
+   tier: 1
+   filings: [redwire_credit_original]
+   task: >-
+     Check this credit agreement for cross-references to sections that
+     don't exist.
+   scope: 'whole_document'
+   expected:
+     must_flag:
+       - type: dangling_reference
+         location: "1.01"
+     must_not_flag:
+       - mentions: ["Exhibit", "Schedule"]
+         reason: "Exhibits and schedules weren't filed on EDGAR, which is normal for credit agreements."
+     max_extra_findings: 0
+   ground_truth_ref: [RWO-1]
+   optimal_steps: 2
