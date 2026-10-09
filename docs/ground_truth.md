@@ -1,4 +1,4 @@
-# Ground truth: known findings per filing
+﻿# Ground truth: known findings per filing
 
 The answer key for Sprint 3 eval tasks. Every row was spotted on Day 1 or by a tool on Day 2,
 and is re-read by hand in the filing text before its status becomes `verified`.
@@ -31,6 +31,7 @@ Status: `verified` = re-read in the filing · `to-check` = not yet re-read · `o
 | RWO-1 | §1.01 | dangling_reference | Cites "Section 1.1" for pro forma calculation; no such section. Intended target: §1.11 Pro Forma Calculations. | 1 | verified |
 | RWO-2 | §7.02 | defined_term | Defined as "Joint Venture Investments Basket" and "Unrestricted Subsidiary Investments Basket" (plural), but each definition refers to the other in the singular ("...Investment Basket"). | 2 | verified |
 | RWO-3 | §1.01 | defined_term | "Securitization Repurchasing Obligations" (1 use); the defined term is "Securitization Repurchase Obligation". | 2 | verified |
+| RWO-4 | §11.02, §11.11 | term_mismatch | Article XI calls its own instrument "this Guarantee" (5× in 11.02, 1× in 11.11); "Guarantee" is defined as any Person's generic obligation, "Guaranty" as this instrument. 11.08 and 11.11 use "this Guaranty" correctly. | 2 | verified |
 
 ## redwire_credit_amend1 (hard, amendment)
    | RWA-4 | §1.01 (ii) | defined_term | Amendment "amends and restates" "Lenders", but the original §1.01 defines only "Lender" (pointing to the preamble). After the amendment both terms exist. | 3 | verified |
@@ -70,10 +71,13 @@ Things that look like findings but aren't. Eval scoring must not count them.
 | Filing | What | Why it's not a finding |
 |---|---|---|
 | redwire_credit_original | "Admaicntistrative Agent" | Conversion damage: the missing word "act" was shuffled into it. |
-| any | "Componentshall" and other glued words | Conversion damage from EDGAR HTML. |
 | redwire_credit_original | §6.01 inline (w)(x)(y)(z) | Inline alternatives, not subsections (fixed Day 3). |
 | redwire_credit_original | Buyer, Parent, Company "defined twice" | Both definitions point to the same preamble text. |
 | redwire_credit_original | Missing exhibits and schedules | Not filed on EDGAR, which is normal for credit agreements. |
 | tva_facility_lease | "Discount Value" | Only in the definitions index in the table of contents; the body uses the defined "Discounted Value". read_document skips TOC entries, so the agent never sees it. |
 | ford_arr_2026b | Blank "Article V" heading | Parser cosmetic, no tool depends on it. |
 | redwire_credit_amend1 | §7.11 leverage ratios raised (5.00 → 6.00 in 2021, 3.75 → 5.00 in 2022, 3.00 → 4.00 in 2023) | Deliberate amendment, not a contradiction. A naive diff will flag these: this is the Day 6 false positive. |
+| any | Glued words ("issatisfied", "DomesticSubsidiary", "anddeliver"…) | Conversion damage, still visible after parsing. "Componentshall" itself was split by the Day 3 fix. |
+| redwire_credit_original | §6.11 closing list: "; and" after (iv) | Punctuation slip, not an inconsistency type we check. |
+| redwire_credit_original | "Guarantee" outside Article XI, incl. "Collateral and Guarantee Requirement" | Correct: the generic defined term, or part of a separate defined term. |
+| redwire_credit_original | §6.11(a)(i)(B) "Material Subsidiary" vs "Material Domestic Subsidiary" in (A), (C) | Both defined; Material Subsidiary includes foreign ones, and (B) covers pledges that reach them. Deliberate. |

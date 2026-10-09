@@ -14,6 +14,7 @@ expected:
   must_flag:                       # leave as [] for a "should come back clean" task
     - type: <finding_type>         # a label from flag_inconsistency, or a list of them
       location: "<15.1>"           # quote it, so 7.10 doesn't turn into 7.1
+                                   # or a list, ["11.02", "11.11"]: flagging any one counts
   must_not_flag:                   # traps: any finding at these places fails the task
     - location: "<13.2>"
       reason: "<why it looks wrong but isn't>"

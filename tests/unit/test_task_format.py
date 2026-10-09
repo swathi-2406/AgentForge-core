@@ -81,3 +81,30 @@ def test_empty_file_gives_clear_error(tmp_path):
     path.write_text("")
     with pytest.raises(ValueError, match="empty or not a YAML mapping"):
         load_task(path)
+
+
+def test_trap_can_narrow_by_type_and_words():
+    t = EvalTask.model_validate(good(expected={
+        "must_flag": [{"type": "term_mismatch", "location": "1.01"}],
+        "must_not_flag": [
+            {"location": "1.01", "type": "duplicate_definition", "reason": "same preamble text"},
+            {"mentions": ["Exhibit"], "reason": "exhibits not filed on EDGAR"}]}))
+    assert t.expected.must_not_flag[1].location is None
+
+
+def test_trap_needs_location_or_mentions():
+    with pytest.raises(ValidationError):
+        EvalTask.model_validate(good(expected={"must_flag": [{"type": "other", "location": "1"}],
+                                               "must_not_flag": [{"reason": "too vague"}]}))
+
+
+def test_must_flag_accepts_any_of_several_locations():
+    t = EvalTask.model_validate(good(expected={"must_flag": [
+        {"type": "term_mismatch", "location": ["Section 11.02", "11.11"]}]}))
+    assert t.expected.must_flag[0].accepted_locations() == {"11.02", "11.11"}
+
+
+@pytest.mark.parametrize("loc", [[], [""], ""])
+def test_empty_location_rejected(loc):
+    with pytest.raises(ValidationError):
+        EvalTask.model_validate(good(expected={"must_flag": [{"type": "other", "location": loc}]}))

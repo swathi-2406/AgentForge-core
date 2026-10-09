@@ -36,18 +36,44 @@ class _Strict(BaseModel):
 class ExpectedFinding(_Strict):
     """A finding the agent must report."""
     type: Union[FindingType, list[FindingType]]  # one label, or a short list of acceptable ones
-    location: str = Field(min_length=1)          # "15.1", "Schedule A", "Article II"
+    location: Union[str, list[str]]              # "15.1", or ["11.02", "11.11"] = flagging any one counts
     filing: Optional[str] = None                 # required only when the task has two filings
 
     def accepted_types(self) -> set[str]:
         return set(self.type) if isinstance(self.type, list) else {self.type}
 
+    def accepted_locations(self) -> set[str]:
+        locs = self.location if isinstance(self.location, list) else [self.location]
+        return {normalize_location(loc) for loc in locs}
+
+    @model_validator(mode="after")
+    def _locations_not_empty(self) -> "ExpectedFinding":
+        locs = self.location if isinstance(self.location, list) else [self.location]
+        if not locs or any(not loc.strip() for loc in locs):
+            raise ValueError("location must be a non-empty string or a non-empty list of them")
+        return self
+
 
 class Trap(_Strict):
-    """A place where a finding would be wrong. Any finding here fails the task."""
-    location: str = Field(min_length=1)
+    """Something that looks wrong but isn't. A finding that matches it fails the task.
+
+    A finding matches when every field you set matches:
+      location  same place ("1.01")            -- leave out for "anywhere in scope"
+      type      one of these labels            -- leave out for "any label"
+      mentions  any of these words appear in the finding's description or evidence
+    Use type or mentions to tell a trap apart from a real finding at the same location.
+    """
+    location: Optional[str] = Field(None, min_length=1)
+    type: Optional[Union[FindingType, list[FindingType]]] = None
+    mentions: list[str] = []
     reason: str = Field(min_length=5)            # why it looks wrong but isn't
     filing: Optional[str] = None
+
+    @model_validator(mode="after")
+    def _says_where_or_what(self) -> "Trap":
+        if self.location is None and not self.mentions:
+            raise ValueError("a trap needs a location, mentions, or both")
+        return self
 
 
 class Expected(_Strict):
@@ -78,7 +104,7 @@ class EvalTask(_Strict):
             raise ValueError("must_flag needs ground_truth_ref: which verified row says so?")
         for item in [*self.expected.must_flag, *self.expected.must_not_flag]:
             if item.filing is None and len(self.filings) > 1:
-                raise ValueError(f"task has two filings, so '{item.location}' needs a 'filing:'")
+                raise ValueError(f"task has two filings, so '{item.location or item.mentions}' needs a 'filing:'")
             if item.filing is not None and item.filing not in self.filings:
                 raise ValueError(f"'{item.filing}' is not in this task's filings {self.filings}")
         return self
