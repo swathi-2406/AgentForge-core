@@ -1,0 +1,15 @@
+   id: t2_rwo_trap_9_01
+   tier: 2
+   filings: [redwire_credit_original]
+   task: >-
+     Check Section 9.01 of this credit agreement for defined terms that are
+     misspelled, used inconsistently, or aren't defined.
+   scope: '9.01'
+   expected:
+     must_flag: []
+     must_not_flag:
+       - mentions: ["Admaicntistrative"]
+         reason: "Conversion damage: the word 'act' got shuffled into 'Administrative' when EDGAR's HTML was converted."
+     max_extra_findings: 0
+   ground_truth_ref: []
+   optimal_steps: 2

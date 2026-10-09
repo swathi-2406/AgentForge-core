@@ -1,0 +1,15 @@
+   id: t2_ford_reference_s3
+   tier: 2
+   filings: [ford_arr_2026b]
+   task: >-
+     Check Section 3 of this agreement for cross-references that point to
+     the wrong section or schedule.
+   scope: 'Section 3'
+   expected:
+     must_flag:
+       - type: wrong_reference
+         location: "3.8"
+     must_not_flag: []
+     max_extra_findings: 0
+   ground_truth_ref: [FORD-1]
+   optimal_steps: 3

@@ -1,0 +1,17 @@
+   id: t2_rwo_terms_art7
+   tier: 2
+   filings: [redwire_credit_original]
+   task: >-
+     Check Article VII of this credit agreement for defined terms that are
+     used inconsistently.
+   scope: 'Article VII'
+   expected:
+     must_flag:
+       - type: term_mismatch
+         location: "7.02"
+     must_not_flag:
+       - mentions: ["Guarantee"]
+         reason: "Generic 'Guarantee' (any Person's guarantee of debt) is the correct defined term in the covenants."
+     max_extra_findings: 0
+   ground_truth_ref: [RWO-2]
+   optimal_steps: 3

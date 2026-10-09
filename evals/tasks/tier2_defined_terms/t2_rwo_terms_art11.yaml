@@ -1,0 +1,19 @@
+   id: t2_rwo_terms_art11
+   tier: 2
+   filings: [redwire_credit_original]
+   task: >-
+     Check Article XI of this credit agreement for defined terms that are
+     used inconsistently.
+   scope: 'Article XI'
+   expected:
+     must_flag:
+       - type: term_mismatch
+         location: ["11.02", "11.11"]
+     must_not_flag:
+       - location: "11.08"
+         reason: "'this Guaranty' is the correct defined term for this instrument."
+       - mentions: ["Guaranteed Obligations"]
+         reason: "A separate defined term, used correctly."
+     max_extra_findings: 0
+   ground_truth_ref: [RWO-4]
+   optimal_steps: 3

@@ -1,0 +1,17 @@
+   id: t2_ford_terms_whole
+   tier: 2
+   filings: [ford_arr_2026b]
+   task: >-
+     Check this agreement for defined terms that are used inconsistently
+     or aren't actually defined.
+   scope: 'whole_document'
+   expected:
+     must_flag:
+       - type: [term_mismatch, undefined_term]
+         location: "3.3"
+       - type: undefined_term
+         location: ["1.2", "Schedule A"]
+     must_not_flag: []
+     max_extra_findings: 0
+   ground_truth_ref: [FORD-2, FORD-3]
+   optimal_steps: 4

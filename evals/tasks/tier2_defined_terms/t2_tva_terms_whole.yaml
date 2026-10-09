@@ -1,0 +1,19 @@
+   id: t2_tva_terms_whole
+   tier: 2
+   filings: [tva_facility_lease]
+   task: >-
+     Check this lease for defined terms that are used inconsistently or
+     don't match their definitions.
+   scope: 'whole_document'
+   expected:
+     must_flag:
+       - type: term_mismatch
+         location: "13.2"
+       - type: [term_mismatch, undefined_term]
+         location: "3.3"
+     must_not_flag:
+       - mentions: ["theLessor", "TerminationDate"]
+         reason: "Conversion damage from EDGAR HTML, not drafting."
+     max_extra_findings: 0
+   ground_truth_ref: [TVA-3, TVA-4]
+   optimal_steps: 4

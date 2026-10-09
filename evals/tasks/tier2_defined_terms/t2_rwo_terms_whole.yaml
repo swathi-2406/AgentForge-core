@@ -1,0 +1,28 @@
+   id: t2_rwo_terms_whole
+   tier: 2
+   filings: [redwire_credit_original]
+   task: >-
+     Check this credit agreement for defined terms that are used
+     inconsistently or don't match their definitions.
+   scope: 'whole_document'
+   expected:
+     must_flag:
+       - type: term_mismatch
+         location: "7.02"
+       - type: term_mismatch
+         location: "1.01"
+       - type: term_mismatch
+         location: ["11.02", "11.11"]
+     must_not_flag:
+       - location: "1.01"
+         type: duplicate_definition
+         reason: "Buyer, Parent, Company: both definitions point to the same preamble text."
+       - mentions: ["Admaicntistrative", "DomesticSubsidiary", "issatisfied", "anddeliver"]
+         reason: "Conversion damage from EDGAR HTML, not drafting."
+       - mentions: ["Material Subsidiary"]
+         reason: "Defined as domestic or foreign; 6.11(a)(i)(B) uses it on purpose."
+       - mentions: ["Collateral and Guarantee Requirement"]
+         reason: "A separate defined term, used correctly."
+     max_extra_findings: 0
+   ground_truth_ref: [RWO-2, RWO-3, RWO-4]
+   optimal_steps: 5

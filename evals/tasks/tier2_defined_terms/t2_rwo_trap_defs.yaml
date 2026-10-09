@@ -1,0 +1,23 @@
+   id: t2_rwo_trap_defs
+   tier: 2
+   filings: [redwire_credit_original]
+   task: >-
+     Check the definitions in Section 1.01 of this credit agreement for
+     terms that are defined twice or used inconsistently.
+   scope: '1.01'
+   expected:
+     must_flag:
+       - type: term_mismatch
+         location: "1.01"
+     must_not_flag:
+       - location: "1.01"
+         type: duplicate_definition
+         reason: "Buyer, Parent, Company look defined twice, but both definitions point to the same preamble text."
+       - mentions: ["Collateral and Guarantee Requirement"]
+         reason: "A separate defined term, used correctly."
+     max_extra_findings: 0
+   ground_truth_ref: [RWO-3]
+   optimal_steps: 3
+   notes: >-
+     RWO-1 (dangling "Section 1.1") also sits in 1.01, but it's a cross-reference
+     problem, not a terms problem. Flagging it here counts as an extra.

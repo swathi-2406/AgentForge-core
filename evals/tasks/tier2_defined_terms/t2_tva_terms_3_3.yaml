@@ -1,0 +1,15 @@
+   id: t2_tva_terms_3_3
+   tier: 2
+   filings: [tva_facility_lease]
+   task: >-
+     Check Section 3.3 of this lease for defined terms that are used
+     inconsistently or don't match their definitions.
+   scope: '3.3'
+   expected:
+     must_flag:
+       - type: [term_mismatch, undefined_term]
+         location: "3.3"
+     must_not_flag: []
+     max_extra_findings: 0
+   ground_truth_ref: [TVA-4]
+   optimal_steps: 3

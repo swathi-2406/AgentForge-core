@@ -1,0 +1,18 @@
+   id: t2_tva_reference_s15
+   tier: 2
+   filings: [tva_facility_lease]
+   task: >-
+     Check Section 15 of this lease for cross-references that point to the
+     wrong section or clause.
+   scope: 'Section 15'
+   expected:
+     must_flag:
+       - type: wrong_reference
+         location: "15.1"
+     must_not_flag:
+       - location: "15.1"
+         type: dangling_reference
+         reason: "13.2(d) exists, so the reference isn't dangling. It points to the wrong clause; it should be 13.2(e)."
+     max_extra_findings: 0
+   ground_truth_ref: [TVA-1]
+   optimal_steps: 3

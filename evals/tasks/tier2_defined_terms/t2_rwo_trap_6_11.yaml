@@ -1,0 +1,19 @@
+   id: t2_rwo_trap_6_11
+   tier: 2
+   filings: [redwire_credit_original]
+   task: >-
+     Check Section 6.11 of this credit agreement for defined terms that are
+     used inconsistently or aren't defined.
+   scope: '6.11'
+   expected:
+     must_flag: []
+     must_not_flag:
+       - mentions: ["Guarantee"]
+         reason: "Part of the defined term 'Collateral and Guarantee Requirement'."
+       - mentions: ["DomesticSubsidiary", "issatisfied", "anddeliver", "theextent", "anyaction"]
+         reason: "Conversion damage from EDGAR HTML, not drafting."
+       - mentions: ["Material Subsidiary"]
+         reason: "Defined as domestic or foreign; (B) covers pledges by both on purpose."
+     max_extra_findings: 0
+   ground_truth_ref: []
+   optimal_steps: 2

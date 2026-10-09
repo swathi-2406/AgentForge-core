@@ -1,0 +1,19 @@
+   id: t2_rwa_terms_whole
+   tier: 2
+   filings: [redwire_credit_amend1]
+   task: >-
+     Check this amendment for defined terms that are used inconsistently
+     or aren't actually defined.
+   scope: 'whole_document'
+   expected:
+     must_flag:
+       - type: [undefined_term, term_mismatch]
+         location: "4.01"
+     must_not_flag: []
+     max_extra_findings: 0
+   ground_truth_ref: [RWA-2]
+   optimal_steps: 3
+   notes: >-
+     Most capitalized terms in an amendment are defined in the original
+     Credit Agreement, not here. Flagging those as undefined is wrong;
+     max_extra_findings: 0 catches it.
