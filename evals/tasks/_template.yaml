@@ -1,0 +1,24 @@
+# Copy this file to start a new task, then replace every <...>.
+# Files starting with "_" are skipped by the loader, so this one never runs.
+
+id: <t1_filing_check_scope>        # equals the file name; starts with t1_, t2_ or t3_
+tier: <1>                          # must match the folder the file sits in
+filings: [<filing_id>]             # ids from data/contracts/manifest.yaml (two for tier 3)
+
+task: >-
+  <The question, in plain words, the way a lawyer would ask it.>
+
+scope: whole_document              # or one place: "Article VII", "7.11", "Schedule A"
+
+expected:
+  must_flag:                       # leave as [] for a "should come back clean" task
+    - type: <finding_type>         # a label from flag_inconsistency, or a list of them
+      location: "<15.1>"           # quote it, so 7.10 doesn't turn into 7.1
+  must_not_flag:                   # traps: any finding at these places fails the task
+    - location: "<13.2>"
+      reason: "<why it looks wrong but isn't>"
+  max_extra_findings: 0            # findings beyond must_flag that are allowed
+
+ground_truth_ref: [<TVA-1>]        # rows in docs/ground_truth.md; [] for clean tasks
+optimal_steps: <3>                 # fewest tool calls a good run needs (Day 9 uses this)
+notes: ""                          # optional, for you
