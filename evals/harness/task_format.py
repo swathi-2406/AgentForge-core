@@ -4,6 +4,9 @@ Every task must be checkable by a script, with no human in the loop:
 
     every must_flag matched  AND  no must_not_flag hit  AND  extras <= max_extra_findings  ->  PASS
 
+A finding that satisfies a must_flag is never also checked against the traps, so a word-match
+trap can't catch a correct answer by accident.
+
 The finding types are imported from flag_inconsistency, so a task can never use a label
 the agent is unable to produce. Files whose names start with "_" (the template) are skipped.
 """
@@ -15,7 +18,7 @@ from pathlib import Path
 from typing import Literal, Optional, Union
 
 import yaml
-from pydantic import BaseModel, ConfigDict, Field, model_validator
+from pydantic import BaseModel, ConfigDict, Field, ValidationError, model_validator
 
 from agentforge_core.tools.flag_inconsistency import FindingType
 
@@ -27,6 +30,27 @@ def normalize_location(location: str) -> str:
     """'Section 15.1(a)' -> '15.1'. Same rule flag_inconsistency uses to verify locations."""
     base = re.sub(r"^(?:section|§)\s*", "", location.strip(), flags=re.I)
     return base.split("(")[0].strip().rstrip(".").lower()
+
+
+_ROMAN = {"I": 1, "II": 2, "III": 3, "IV": 4, "V": 5, "VI": 6, "VII": 7, "VIII": 8, "IX": 9, "X": 10,
+          "XI": 11, "XII": 12, "XIII": 13, "XIV": 14, "XV": 15}
+
+
+def in_scope(location: str, scope: str) -> bool:
+    """Is a finding at `location` inside a task's `scope`? ('7.02' is in 'Article VII' and 'Section 7')."""
+    if scope == "whole_document":
+        return True
+    loc, sc = normalize_location(location), scope.strip().lower()
+    if loc == sc:
+        return True
+    m = re.fullmatch(r"(?:section\s+)?(\d+(?:\.\d+)*)", sc)
+    if m:
+        return loc == m.group(1) or loc.startswith(m.group(1) + ".")
+    m = re.fullmatch(r"article\s+([ivxl]+|\d+)", sc)
+    if m:
+        n = str(_ROMAN.get(m.group(1).upper(), m.group(1)))
+        return loc.startswith(n + ".")
+    return False
 
 
 class _Strict(BaseModel):
@@ -116,7 +140,11 @@ def load_task(path: Path) -> EvalTask:
     data = yaml.safe_load(path.read_text(encoding="utf-8"))
     if not isinstance(data, dict):
         raise ValueError(f"{path}: empty or not a YAML mapping. Delete it, or fill it in from _template.yaml")
-    task = EvalTask.model_validate(data)
+    try:
+        task = EvalTask.model_validate(data)
+    except ValidationError as e:
+        problems = "; ".join(f"{'.'.join(map(str, err['loc']))}: {err['msg']}" for err in e.errors())
+        raise ValueError(f"{path.name}: {problems}") from None
     if task.id != path.stem:
         raise ValueError(f"{path.name}: id is {task.id!r}, but the file name says {path.stem!r}")
     if path.parent.name != TIER_DIRS[task.tier]:
