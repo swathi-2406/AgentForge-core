@@ -1,0 +1,37 @@
+id: t3_rwa_whole
+tier: 3
+filings: [redwire_credit_amend1, redwire_credit_original]   # [amendment, original]
+task: >-
+  Review this amendment against the original credit agreement and report every place where
+  the amended text contradicts itself or the original.
+scope: 'whole_document'
+expected:
+  must_flag:
+  - type: date_inconsistency
+    location: ['7.11', Article II]
+    filing: redwire_credit_amend1
+  - type: [term_mismatch, dangling_reference]
+    location: '1.01'
+    filing: redwire_credit_amend1
+  - type: undefined_term
+    location: '2.02'
+    filing: redwire_credit_amend1
+  - type: number_mismatch
+    location: '6.15'
+    filing: redwire_credit_amend1
+  must_not_flag:
+  - location: '7.11'
+    filing: redwire_credit_amend1
+    mentions: ['6.00', '5.00', '4.00']
+    reason: The leverage ratios were raised on purpose. Intended change, not a contradiction.
+  - location: '2.02'
+    filing: redwire_credit_amend1
+    mentions: [one (1) Business Day]
+    reason: The one-day notice carve-out (y) is stated openly by the amendment.
+  max_extra_findings: 1
+ground_truth_ref: [RWA-1, RWA-4, RWA-5, RWA-6]
+optimal_steps: 10
+naive_failure: >-
+  A plain diff of the whole amendment produces a wall of intended changes, such as raised
+  ratios and new loan terms, and buries the four real contradictions.
+notes: "DRAFT: task and naive_failure are Claude's placeholders. Rewrite in your own words."

@@ -1,0 +1,25 @@
+id: t3_mmlp_covenants_7_14
+tier: 3
+filings: [martin_credit_amend1, martin_credit_original]   # [amendment, original]
+task: >-
+  Check whether the amended financial covenants in Section 7.14 contradict the original
+  credit agreement.
+scope: '7.14'
+expected:
+  must_flag: []
+  must_not_flag:
+  - location: '7.14'
+    filing: martin_credit_amend1
+    mentions: ['1.75', '1.25']
+    reason: Deliberate covenant relief for Q1-Q3 2025. Intended change.
+  - location: '7.14'
+    filing: martin_credit_original
+    mentions: [until]
+    reason: '''until'' in 7.14(b) vs ''through and including'' in (a)/(c): same boundary, different words.'
+  max_extra_findings: 0
+ground_truth_ref: []
+optimal_steps: 4
+naive_failure: >-
+  A plain diff reports the lowered 2025 ratios as contradictions, and may treat the
+  different quarter-boundary wording in 7.14(b) as one too.
+notes: "DRAFT: task and naive_failure are Claude's placeholders. Rewrite in your own words."

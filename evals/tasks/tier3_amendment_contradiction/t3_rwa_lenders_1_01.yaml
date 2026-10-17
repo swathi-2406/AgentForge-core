@@ -1,0 +1,20 @@
+id: t3_rwa_lenders_1_01
+tier: 3
+filings: [redwire_credit_amend1, redwire_credit_original]   # [amendment, original]
+task: >-
+  Check whether the amended definitions in Section 1.01 are consistent with the defined
+  terms of the original agreement.
+scope: '1.01'
+expected:
+  must_flag:
+  - type: [term_mismatch, dangling_reference]
+    location: '1.01'
+    filing: redwire_credit_amend1
+  must_not_flag: []
+  max_extra_findings: 0
+ground_truth_ref: [RWA-4]
+optimal_steps: 5
+naive_failure: >-
+  A plain diff shows the Lenders definition as ordinary new text and misses that the
+  original only defines Lender, so the clause (b) reference points at nothing.
+notes: "DRAFT: task and naive_failure are Claude's placeholders. Rewrite in your own words."

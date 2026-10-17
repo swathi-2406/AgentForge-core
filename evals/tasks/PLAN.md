@@ -51,3 +51,18 @@ Filings: TVA = tva_facility_lease · FORD = ford_arr_2026b · RWO = redwire_cred
 - Traps must be in text the agent can actually see (not the TOC-only "Discount Value").
 
 Tier 3 (8–12 tasks) is planned on Day 8.
+
+## Tier 3
+
+| # | id | Filing | Kind | Rows | Scope | Expect | Status |
+|---|---|---|---|---|---|---|---|
+| 27 | t3_rwa_covenant_7_11 | RWA | real | RWA-1 | 7.11 | RWA-1 · lead-in March 30 vs table March 31 | planned |
+| 28 | t3_rwa_lenders_1_01 | RWA | real | RWA-4 | 1.01 | RWA-4 · semantic equivalence: restates 'Lenders', original defines 'Lender' | planned |
+| 29 | t3_rwa_notice_2_02 | RWA | real | RWA-5 | 2.02 | RWA-5 · 'Eurocurrency Loans' undefined · trap: carve-out | planned |
+| 30 | t3_rwa_proceeds_6_15 | RWA | real | RWA-6 | 6.15 | RWA-6 · two different (ii) | planned |
+| 31 | t3_rwa_whole | RWA | real | RWA-1, RWA-4, RWA-5, RWA-6 | whole_document | headline task · all 4 contradictions · traps: ratios, carve-out | planned |
+| 32 | t3_rwa_clean_2_06 | RWA | clean | - | 2.06 | clean · adds (iii) for First Amendment commitments | planned |
+| 33 | t3_rwa_clean_2_07 | RWA | clean | - | 2.07 | clean · adds (B) amortization, (C) maturity | planned |
+| 34 | t3_mmlp_covenants_7_14 | MMLP | clean | - | 7.14 | clean · traps: ratio relief, 'until' wording | planned |
+| 35 | t3_mmlp_loan_documents_1_01 | MMLP | clean | - | 1.01 | clean · only adds 'the First Amendment' | planned |
+| 36 | t3_mmlp_whole | MMLP | clean | - | whole_document | clean · whole amendment · same traps | planned |

@@ -1,0 +1,17 @@
+id: t3_rwa_clean_2_07
+tier: 3
+filings: [redwire_credit_amend1, redwire_credit_original]   # [amendment, original]
+task: >-
+  Check whether the amended repayment schedule in Section 2.07(a) contradicts the original
+  agreement.
+scope: '2.07'
+expected:
+  must_flag: []
+  must_not_flag: []
+  max_extra_findings: 0
+ground_truth_ref: []
+optimal_steps: 4
+naive_failure: >-
+  A plain diff reports the new amortization clause (B) and the relettered maturity clause
+  (C) as contradictions, although both are intended.
+notes: "DRAFT: task and naive_failure are Claude's placeholders. Rewrite in your own words."

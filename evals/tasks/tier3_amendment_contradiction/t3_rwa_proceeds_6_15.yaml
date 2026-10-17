@@ -1,0 +1,20 @@
+id: t3_rwa_proceeds_6_15
+tier: 3
+filings: [redwire_credit_amend1, redwire_credit_original]   # [amendment, original]
+task: >-
+  Check whether the amended use-of-proceeds clause in Section 6.15(a) is consistent with
+  the original agreement.
+scope: '6.15'
+expected:
+  must_flag:
+  - type: number_mismatch
+    location: '6.15'
+    filing: redwire_credit_amend1
+  must_not_flag: []
+  max_extra_findings: 0
+ground_truth_ref: [RWA-6]
+optimal_steps: 4
+naive_failure: >-
+  A plain diff reports only the added clause for the new term loans and misses that the
+  new outer (ii) collides with the inner (ii).
+notes: "DRAFT: task and naive_failure are Claude's placeholders. Rewrite in your own words."

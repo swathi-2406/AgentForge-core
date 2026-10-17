@@ -1,0 +1,24 @@
+id: t3_rwa_notice_2_02
+tier: 3
+filings: [redwire_credit_amend1, redwire_credit_original]   # [amendment, original]
+task: >-
+  Check whether the amended notice provisions in Section 2.02(a) contradict the original
+  agreement.
+scope: '2.02'
+expected:
+  must_flag:
+  - type: undefined_term
+    location: '2.02'
+    filing: redwire_credit_amend1
+  must_not_flag:
+  - location: '2.02'
+    filing: redwire_credit_amend1
+    mentions: [one (1) Business Day]
+    reason: The one-day notice carve-out (y) is stated openly by the amendment.
+  max_extra_findings: 0
+ground_truth_ref: [RWA-5]
+optimal_steps: 5
+naive_failure: >-
+  A plain diff flags the new one-day carve-out and the added (3) numerals as
+  contradictions, and misses that Eurocurrency Loans is not a defined term.
+notes: "DRAFT: task and naive_failure are Claude's placeholders. Rewrite in your own words."

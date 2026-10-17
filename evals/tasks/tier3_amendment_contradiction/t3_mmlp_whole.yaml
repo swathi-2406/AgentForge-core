@@ -1,0 +1,25 @@
+id: t3_mmlp_whole
+tier: 3
+filings: [martin_credit_amend1, martin_credit_original]   # [amendment, original]
+task: >-
+  Review this amendment against the original credit agreement and report any place where
+  it contradicts the original.
+scope: 'whole_document'
+expected:
+  must_flag: []
+  must_not_flag:
+  - location: '7.14'
+    filing: martin_credit_amend1
+    mentions: ['1.75', '1.25']
+    reason: Deliberate covenant relief for Q1-Q3 2025. Intended change.
+  - location: '7.14'
+    filing: martin_credit_original
+    mentions: [until]
+    reason: '''until'' in 7.14(b) vs ''through and including'' in (a)/(c): same boundary, different words.'
+  max_extra_findings: 0
+ground_truth_ref: []
+optimal_steps: 6
+naive_failure: >-
+  A plain diff reports every restated covenant and definition as a contradiction, although
+  every change in this amendment is intended.
+notes: "DRAFT: task and naive_failure are Claude's placeholders. Rewrite in your own words."

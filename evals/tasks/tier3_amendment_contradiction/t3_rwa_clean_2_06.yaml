@@ -1,0 +1,17 @@
+id: t3_rwa_clean_2_06
+tier: 3
+filings: [redwire_credit_amend1, redwire_credit_original]   # [amendment, original]
+task: >-
+  Check whether the amended commitment reduction provisions in Section 2.06(b) contradict
+  the original agreement.
+scope: '2.06'
+expected:
+  must_flag: []
+  must_not_flag: []
+  max_extra_findings: 0
+ground_truth_ref: []
+optimal_steps: 4
+naive_failure: >-
+  A plain diff reports the new clause (iii) for First Amendment Term Commitments as a
+  contradiction, although it is an intended addition.
+notes: "DRAFT: task and naive_failure are Claude's placeholders. Rewrite in your own words."

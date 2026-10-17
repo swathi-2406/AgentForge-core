@@ -1,0 +1,24 @@
+id: t3_rwa_covenant_7_11
+tier: 3
+filings: [redwire_credit_amend1, redwire_credit_original]   # [amendment, original]
+task: >-
+  Check whether the amended financial covenant in Section 7.11 contradicts itself or the
+  original agreement.
+scope: '7.11'
+expected:
+  must_flag:
+  - type: date_inconsistency
+    location: ['7.11', Article II]
+    filing: redwire_credit_amend1
+  must_not_flag:
+  - location: '7.11'
+    filing: redwire_credit_amend1
+    mentions: ['6.00', '5.00', '4.00']
+    reason: The leverage ratios were raised on purpose. Intended change, not a contradiction.
+  max_extra_findings: 0
+ground_truth_ref: [RWA-1]
+optimal_steps: 5
+naive_failure: >-
+  A plain diff reports every raised leverage ratio and the March 30 to March 31 table
+  dates as contradictions, and misses that the lead-in still says March 30.
+notes: "DRAFT: task and naive_failure are Claude's placeholders. Rewrite in your own words."
