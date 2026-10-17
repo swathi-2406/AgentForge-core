@@ -33,7 +33,7 @@ TARGETS = {
 }
 
 ROMAN = ["i", "ii", "iii", "iv", "v", "vi", "vii", "viii", "ix", "x", "xi", "xii"]
-Q_OPEN, Q_CLOSE = "[\"“]", "[\"”]"
+Q_OPEN, Q_CLOSE = "[\"“]\\s*", "\\s*[\"”]"      # EDGAR bold terms often have spaces inside the quotes
 DEFINES = r"\s+(?:means|shall mean|has the meaning|shall have the meaning)"
 NEXT_INSTRUCTION = re.compile(
     r"\n[^\n]{0,200}?\b(?:is|are|shall be)\s+(?:hereby\s+)?(?:further\s+)?"
@@ -105,7 +105,7 @@ def definition(text: str, term: str) -> str | None:
 
 
 def defined_terms(text: str) -> set[str]:
-    return set(re.findall(Q_OPEN + r"([A-Z][^\"”“\n]{0,60})" + Q_CLOSE + DEFINES, text))
+    return {t.strip() for t in re.findall(Q_OPEN + r"([A-Z][^\"”“\n]{0,60}?)" + Q_CLOSE + DEFINES, text)}
 
 
 def word_diff(old: str, new: str) -> str:
@@ -178,14 +178,14 @@ def amendment_hits(amend, target: str, orig_len: int) -> list[tuple[str, str]]:
     return hits[:3]
 
 
-def checks(orig, new_text: str) -> list[str]:
+def checks(orig, new_text: str, amend=None) -> list[str]:
     out = []
     numbers = {s.number for s in orig.sections}
     for ref in sorted(set(re.findall(r"Sections?\s+(\d+\.\d+)", new_text))):
         if ref not in numbers:
             out.append(f"cites Section {ref}, which is not in the original's section map")
-    known = defined_terms(orig.text)
-    for term in sorted(set(re.findall(Q_OPEN + r"([A-Z][^\"”“\n]{0,60})" + Q_CLOSE, new_text))):
+    known = defined_terms(orig.text) | (defined_terms(amend.text) if amend else set())
+    for term in sorted({t.strip() for t in re.findall(Q_OPEN + r"([A-Z][^\"”“\n]{0,60}?)" + Q_CLOSE, new_text)}):
         if term not in known:
             close = difflib.get_close_matches(term, sorted(known), n=2, cutoff=0.75)
             out.append(f"uses “{term}”, not defined in the original" + (f" (closest: {close})" if close else ""))
@@ -212,7 +212,7 @@ def compare(amend_id: str, target: str) -> str:
                   "  NEW TEXT → " + short(new), ""]
         if o_text:
             lines += ["DIFF", "  " + word_diff(o_text, new), ""]
-        lines += ["CHECKS"] + ["  • " + c for c in checks(orig, new)] + [""]
+        lines += ["CHECKS"] + ["  • " + c for c in checks(orig, new, amend)] + [""]
     lines += ["YOUR CALL  contradiction / intended change / not amended", ""]
     return "\n".join(lines)
 

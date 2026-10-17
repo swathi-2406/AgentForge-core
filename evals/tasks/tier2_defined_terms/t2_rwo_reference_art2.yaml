@@ -1,0 +1,15 @@
+id: t2_rwo_reference_art2
+tier: 2
+filings: [redwire_credit_original]
+task: >-
+  Check Section 2.01 of this agreement for cross-references that point to
+  the wrong section.
+scope: 'Section 2.01'
+expected:
+  must_flag:
+    - type: wrong_reference
+      location: "2.01"
+  must_not_flag: []
+  max_extra_findings: 0
+ground_truth_ref: [RWO-5]
+optimal_steps: 3

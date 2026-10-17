@@ -14,9 +14,16 @@ from pydantic import ValidationError
 from agentforge_core.tools import REGISTRY, call_tool, list_tool_specs
 from agentforge_core.tools.base import ToolError
 from agentforge_core.tools.read_document import get_root
+from agentforge_core.tools.read_document import fix_c1_controls
+
+
 
 TOOLS = {"read_document", "extract_definitions", "extract_cross_references", "extract_section_map",
          "extract_dates", "fetch_related_filing", "flag_inconsistency"}
+
+
+def test_cp1252_quotes_are_repaired():
+    assert fix_c1_controls("\x93Loan Documents\x94 means") == "“Loan Documents” means"
 
 
 def minimal_args(tool: str, filing_id: str) -> dict:

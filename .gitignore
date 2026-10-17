@@ -7,3 +7,5 @@ evals/reports/
 redteam/reports/
 data/sweep/
 data/plans/
+*.bak
+docs/compare.txt

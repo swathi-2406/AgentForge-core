@@ -22,6 +22,20 @@ from pydantic import BaseModel, Field
 from agentforge_core.paths import get_root  # noqa: F401  (re-exported: other tools import it from here)
 from agentforge_core.tools.base import Tool, ToolError, ToolInput, ToolOutput, register_tool
 
+# Windows-1252 punctuation that arrived as C1 control characters (\x80-\x9f),
+# e.g. \x93 \x94 instead of “ ”. Happens when a cp1252 file is decoded as Latin-1.
+_C1_FIX = {}
+for _b in range(0x80, 0xA0):
+    try:
+        _C1_FIX[_b] = bytes([_b]).decode("cp1252")
+    except UnicodeDecodeError:
+        pass  # 0x81, 0x8D, 0x8F, 0x90, 0x9D are undefined in cp1252; leave them
+
+
+def fix_c1_controls(text: str) -> str:
+    return text.translate(_C1_FIX)
+
+
 # ---------- where filings live ----------
 
 
@@ -98,6 +112,7 @@ PAGE_NUMBER_LINE = re.compile(r"^(?:-\s*)?(?:page\s+)?(?:\d{1,3}|[ivxl]{1,6})(?:
 
 
 def normalize(text: str) -> str:
+    text = fix_c1_controls(text)
     lines = []
     for line in text.translate(CHAR_MAP).split("\n"):
         line = re.sub(r" {2,}", " ", line).strip()

@@ -41,6 +41,7 @@ Filings: TVA = tva_facility_lease · FORD = ford_arr_2026b · RWO = redwire_cred
 | 23 | t2_rwo_trap_9_01 | RWO | trap | – | 9.01 | nothing · trap: mentions "Admaicntistrative" | planned |
 | 24 | t2_rwo_trap_6_11 | RWO | trap | – | 6.11 | nothing · traps: "Collateral and Guarantee Requirement", glued words, "Material Subsidiary" in (B) | planned |
 | 25 | t2_rwo_terms_art11 | RWO | real | RWO-4 | Article XI | flag [11.02, 11.11] · term_mismatch | planned |
+| 26 | t2_rwo_reference_art2 | RWO | real | RWO-5 | Section 2.01 | flag 2.01 · wrong_reference | planned |
 
 ## Rules I'm holding myself to
 

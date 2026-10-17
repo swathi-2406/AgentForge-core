@@ -33,15 +33,18 @@ Status: `verified` = re-read in the filing · `to-check` = not yet re-read · `o
 | RWO-2 | §7.02 | defined_term | Defined as "Joint Venture Investments Basket" and "Unrestricted Subsidiary Investments Basket" (plural), but each definition refers to the other in the singular ("...Investment Basket"). | 2 | verified |
 | RWO-3 | §1.01 | defined_term | "Securitization Repurchasing Obligations" (1 use); the defined term is "Securitization Repurchase Obligation". | 2 | verified |
 | RWO-4 | §11.02, §11.11 | term_mismatch | Article XI calls its own instrument "this Guarantee" (5× in 11.02, 1× in 11.11); "Guarantee" is defined as any Person's generic obligation, "Guaranty" as this instrument. 11.08 and 11.11 use "this Guaranty" correctly. | 2 | verified |
+| RWO-5 | §2.01(a)(ii) | wrong_reference | Calls itself "Section 2.01(b)" twice; the clause is 2.01(a)(ii). §2.01(b) exists (Revolving Credit Borrowings), so an existence check won't catch it. | 2 | verified |
 
 ## redwire_credit_amend1 (hard, amendment)
-   | RWA-4 | §1.01 (ii) | defined_term | Amendment "amends and restates" "Lenders", but the original §1.01 defines only "Lender" (pointing to the preamble). After the amendment both terms exist. | 3 | verified |
 
 | ID | Location | Type | Finding | Tier | Status |
 |---|---|---|---|---|---|
 | RWA-1 | Article II (new §7.11 text) | date | Lead-in says the first Test Period ends March 30, 2021; the amended table uses March 31 (2021-2024). The original used March 30 in both places, so the amendment fixed the table but not the lead-in. | 3 | verified |
 | RWA-2 | §4.01 | defined_term | Uses "Amended Credit Agreement" once; it is never defined. | 2 | verified |
 | RWA-3 | §1.03 | list_numbering | Roman list jumps from (iv) to (vi); no (v) in the section. | 1 | verified |
+| RWA-4 | §1.01 (amendment §(a)(ii)) | defined_term | Restates "Lenders"; the original's term is "Lender". Read literally, "First Amendment Term Lender" cites clause (b) of a "Lender" definition that has no clause (b). Scorer accepts defined_term or dangling_reference here. | 3 | verified |
+| RWA-5 | §2.02(a), clause (II) | defined_term | New sentence says "Eurocurrency Loans"; the original defines only "Eurocurrency Rate Loan" and "Eurocurrency Rate". | 3 | verified |
+| RWA-6 | §6.15(a) | list_numbering | Restated text wraps an inner (i)(ii)(iii) in a new outer (i)/(ii), so "(ii)" means two different things. Any reference to clause (ii) of 6.15(a) is ambiguous. | 3 | verified |
 
 **RWA-1, settled on Day 3.** The amendment introduced this contradiction. It wasn't in the original:
 
@@ -52,18 +55,32 @@ Status: `verified` = re-read in the filing · `to-check` = not yet re-read · `o
 
 ## Hard-tier comparison targets
 
-The clauses the amendment changes. Tier 3 tasks compare these against the original, and the
-correct answer for some will be "no contradiction". That's a valid, useful task too.
+Clause-by-clause calls from `scripts/compare_clause.py --all` (Day 8).
 
-| Amended clause | Exists in original | Contradiction? |
+### redwire_credit_amend1 vs redwire_credit_original
+
+| Amended clause | Call | Notes |
 |---|---|---|
-| §1.01 (definitions) | yes (Day 2 cross-ref check) | to-check |
-| §2.01(a)(i) | yes | to-check |
-| §2.02(a) | yes | to-check |
-| §2.06(b) | yes | to-check |
-| §2.07(a) | yes | to-check |
-| §6.15(a) | yes | to-check |
-| §7.11 | yes | yes: RWA-1. The ratio changes are intended (see Not findings). |
+| §1.01 new definitions (DSS, First Amendment …) | intended | New terms for the new loans. |
+| §1.01 "Lenders" | contradiction | RWA-4 |
+| §2.01(a)(i) | intended | Adds First Amendment Term Loans. The no-reborrow rule narrows to (a)(i), but (a)(ii) has its own. |
+| §2.02(a) | contradiction | RWA-5. The one-day carve-out (y) is intended. |
+| §2.06(b) | intended | Adds (iii) for First Amendment Term Commitments. |
+| §2.07(a) | intended | Adds (B) amortization and (C) maturity for First Amendment Term Loans. |
+| §6.15(a) | contradiction | RWA-6 |
+| §7.11 | contradiction | RWA-1 (settled Day 3) |
+
+### martin_credit_amend1 vs martin_credit_original
+
+| Amended clause | Call | Notes |
+|---|---|---|
+| §1.01 "Loan Documents" | intended | Only adds "the First Amendment". |
+| §1.01 "First Amendment" (new) | intended | New term. |
+| §7.14(a) | intended | Interest coverage 2.00 → 1.75 for Q1–Q3 2025, then back to 2.00. |
+| §7.14(c) | intended | First lien leverage 1.50 → 1.25 for Q1–Q3 2025, then back to 1.50. |
+| §7.14(b), not amended | control | Untouched. See Not findings. |
+
+Martin has no contradictions. Its tasks are clean negatives that test for false positives.
 
 ## Not findings
 
@@ -82,3 +99,9 @@ Things that look like findings but aren't. Eval scoring must not count them.
 | redwire_credit_original | §6.11 closing list: "; and" after (iv) | Punctuation slip, not an inconsistency type we check. |
 | redwire_credit_original | "Guarantee" outside Article XI, incl. "Collateral and Guarantee Requirement" | Correct: the generic defined term, or part of a separate defined term. |
 | redwire_credit_original | §6.11(a)(i)(B) "Material Subsidiary" vs "Material Domestic Subsidiary" in (A), (C) | Both defined; Material Subsidiary includes foreign ones, and (B) covers pledges that reach them. Deliberate. |
+| redwire_credit_amend1 | §2.02(a) one-day notice carve-out (y) | Stated openly by the amendment: intended. |
+| redwire_credit_amend1 | §2.02(a) "three (3) Business Day" (singular) | Inherited from the original; grammar, not a contradiction. |
+| redwire_credit_amend1 | §2.02(a) mention in amendment §3.02 | A condition that cites the clause, not a change to it. |
+| redwire_credit_amend1 | §2.01(a)(i) no-reborrow narrowed to (a)(i) | (a)(ii) keeps its own no-reborrow sentence. |
+| martin_credit_amend1 | §7.14(a), §7.14(c) ratio changes | Deliberate covenant relief. A naive diff will flag these. |
+| martin_credit_original | §7.14(b) "until" vs (a)/(c) "through and including" | Different wording for the same quarter boundary. Not a contradiction: keep it as a must-not-flag trap. |
