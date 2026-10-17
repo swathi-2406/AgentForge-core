@@ -1,0 +1,478 @@
+{
+  "$defs": {
+    "Attempt": {
+      "additionalProperties": false,
+      "properties": {
+        "attempt": {
+          "minimum": 1,
+          "title": "Attempt",
+          "type": "integer"
+        },
+        "critique": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/Critique"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null
+        },
+        "expected_outcome": {
+          "minLength": 1,
+          "title": "Expected Outcome",
+          "type": "string"
+        },
+        "observation": {
+          "$ref": "#/$defs/Observation"
+        },
+        "retry_reason": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Retry Reason"
+        },
+        "reward": {
+          "anyOf": [
+            {
+              "enum": [
+                -1,
+                0,
+                1
+              ],
+              "type": "integer"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Reward"
+        },
+        "tool_call": {
+          "$ref": "#/$defs/ToolCall"
+        }
+      },
+      "required": [
+        "attempt",
+        "tool_call",
+        "expected_outcome",
+        "observation"
+      ],
+      "title": "Attempt",
+      "type": "object"
+    },
+    "Critique": {
+      "additionalProperties": false,
+      "properties": {
+        "confidence": {
+          "maximum": 1,
+          "minimum": 0,
+          "title": "Confidence",
+          "type": "number"
+        },
+        "reasoning": {
+          "minLength": 1,
+          "title": "Reasoning",
+          "type": "string"
+        },
+        "source": {
+          "default": "llm",
+          "enum": [
+            "rule",
+            "llm"
+          ],
+          "title": "Source",
+          "type": "string"
+        },
+        "verdict": {
+          "enum": [
+            "success",
+            "partial",
+            "failure"
+          ],
+          "title": "Verdict",
+          "type": "string"
+        }
+      },
+      "required": [
+        "verdict",
+        "reasoning",
+        "confidence"
+      ],
+      "title": "Critique",
+      "type": "object"
+    },
+    "Finding": {
+      "additionalProperties": false,
+      "properties": {
+        "description": {
+          "minLength": 1,
+          "title": "Description",
+          "type": "string"
+        },
+        "filing_id": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Filing Id"
+        },
+        "finding_id": {
+          "minLength": 1,
+          "title": "Finding Id",
+          "type": "string"
+        },
+        "location": {
+          "minLength": 1,
+          "title": "Location",
+          "type": "string"
+        },
+        "severity": {
+          "minLength": 1,
+          "title": "Severity",
+          "type": "string"
+        },
+        "step_id": {
+          "anyOf": [
+            {
+              "type": "integer"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Step Id"
+        },
+        "suppressed": {
+          "default": false,
+          "title": "Suppressed",
+          "type": "boolean"
+        },
+        "type": {
+          "enum": [
+            "dangling_reference",
+            "wrong_reference",
+            "term_mismatch",
+            "undefined_term",
+            "duplicate_definition",
+            "date_inconsistency",
+            "number_mismatch",
+            "amendment_conflict",
+            "other"
+          ],
+          "title": "Type",
+          "type": "string"
+        }
+      },
+      "required": [
+        "finding_id",
+        "type",
+        "location",
+        "description",
+        "severity"
+      ],
+      "title": "Finding",
+      "type": "object"
+    },
+    "Observation": {
+      "additionalProperties": false,
+      "properties": {
+        "empty_reason": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Empty Reason"
+        },
+        "error_kind": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Error Kind"
+        },
+        "error_type": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Error Type"
+        },
+        "latency_ms": {
+          "minimum": 0,
+          "title": "Latency Ms",
+          "type": "number"
+        },
+        "output_bytes": {
+          "anyOf": [
+            {
+              "minimum": 0,
+              "type": "integer"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Output Bytes"
+        },
+        "output_preview": {
+          "default": "",
+          "maxLength": 2000,
+          "title": "Output Preview",
+          "type": "string"
+        },
+        "status": {
+          "enum": [
+            "ok",
+            "empty",
+            "error"
+          ],
+          "title": "Status",
+          "type": "string"
+        }
+      },
+      "required": [
+        "status",
+        "latency_ms"
+      ],
+      "title": "Observation",
+      "type": "object"
+    },
+    "PlannedStep": {
+      "additionalProperties": false,
+      "properties": {
+        "expected_outcome": {
+          "minLength": 1,
+          "title": "Expected Outcome",
+          "type": "string"
+        },
+        "step_id": {
+          "minimum": 1,
+          "title": "Step Id",
+          "type": "integer"
+        },
+        "tool_args": {
+          "additionalProperties": true,
+          "default": {},
+          "title": "Tool Args",
+          "type": "object"
+        },
+        "tool_name": {
+          "minLength": 1,
+          "title": "Tool Name",
+          "type": "string"
+        }
+      },
+      "required": [
+        "step_id",
+        "tool_name",
+        "expected_outcome"
+      ],
+      "title": "PlannedStep",
+      "type": "object"
+    },
+    "Step": {
+      "additionalProperties": false,
+      "properties": {
+        "attempts": {
+          "items": {
+            "$ref": "#/$defs/Attempt"
+          },
+          "minItems": 1,
+          "title": "Attempts",
+          "type": "array"
+        },
+        "step_id": {
+          "minimum": 1,
+          "title": "Step Id",
+          "type": "integer"
+        }
+      },
+      "required": [
+        "step_id",
+        "attempts"
+      ],
+      "title": "Step",
+      "type": "object"
+    },
+    "ToolCall": {
+      "additionalProperties": false,
+      "properties": {
+        "tool_args": {
+          "additionalProperties": true,
+          "default": {},
+          "title": "Tool Args",
+          "type": "object"
+        },
+        "tool_name": {
+          "minLength": 1,
+          "title": "Tool Name",
+          "type": "string"
+        }
+      },
+      "required": [
+        "tool_name"
+      ],
+      "title": "ToolCall",
+      "type": "object"
+    }
+  },
+  "additionalProperties": false,
+  "properties": {
+    "confidence": {
+      "anyOf": [
+        {
+          "maximum": 1,
+          "minimum": 0,
+          "type": "number"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Confidence"
+    },
+    "filings": {
+      "items": {
+        "type": "string"
+      },
+      "maxItems": 2,
+      "minItems": 1,
+      "title": "Filings",
+      "type": "array"
+    },
+    "final_status": {
+      "enum": [
+        "completed",
+        "failed"
+      ],
+      "title": "Final Status",
+      "type": "string"
+    },
+    "findings": {
+      "default": [],
+      "items": {
+        "$ref": "#/$defs/Finding"
+      },
+      "title": "Findings",
+      "type": "array"
+    },
+    "finished_at": {
+      "title": "Finished At",
+      "type": "string"
+    },
+    "give_up_reason": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Give Up Reason"
+    },
+    "plan": {
+      "items": {
+        "$ref": "#/$defs/PlannedStep"
+      },
+      "title": "Plan",
+      "type": "array"
+    },
+    "run_id": {
+      "minLength": 1,
+      "title": "Run Id",
+      "type": "string"
+    },
+    "schema_version": {
+      "const": "v1",
+      "default": "v1",
+      "title": "Schema Version",
+      "type": "string"
+    },
+    "started_at": {
+      "title": "Started At",
+      "type": "string"
+    },
+    "steps": {
+      "items": {
+        "$ref": "#/$defs/Step"
+      },
+      "title": "Steps",
+      "type": "array"
+    },
+    "task": {
+      "minLength": 1,
+      "title": "Task",
+      "type": "string"
+    },
+    "task_id": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Task Id"
+    },
+    "total_latency_ms": {
+      "minimum": 0,
+      "title": "Total Latency Ms",
+      "type": "number"
+    },
+    "total_retries": {
+      "minimum": 0,
+      "title": "Total Retries",
+      "type": "integer"
+    }
+  },
+  "required": [
+    "run_id",
+    "task",
+    "filings",
+    "plan",
+    "steps",
+    "final_status",
+    "started_at",
+    "finished_at",
+    "total_latency_ms",
+    "total_retries"
+  ],
+  "title": "Trajectory",
+  "type": "object"
+}
