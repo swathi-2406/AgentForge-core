@@ -116,6 +116,7 @@ class EvalTask(_Strict):
     ground_truth_ref: list[str] = []             # row ids in docs/ground_truth.md
     optimal_steps: int = Field(ge=1, le=20)
     notes: str = ""
+    naive_failure: Optional[str] = None          # tier 3 only: what a plain text diff would wrongly report
 
     @model_validator(mode="after")
     def _consistent(self) -> "EvalTask":
@@ -131,6 +132,18 @@ class EvalTask(_Strict):
                 raise ValueError(f"task has two filings, so '{item.location or item.mentions}' needs a 'filing:'")
             if item.filing is not None and item.filing not in self.filings:
                 raise ValueError(f"'{item.filing}' is not in this task's filings {self.filings}")
+        return self
+    @model_validator(mode="after")
+    def _tier3_rules(self) -> "EvalTask":
+        """Tier 3 compares an amendment with its original, so it needs both filings and a
+        written-down naive failure mode. That's what makes the tier exercise self-correction."""
+        if self.tier == 3:
+            if len(self.filings) != 2:
+                raise ValueError("a tier 3 task needs two filings: [amendment, original]")
+            if not self.naive_failure or len(self.naive_failure.strip()) < 20:
+                raise ValueError("a tier 3 task needs naive_failure: one sentence on what a plain diff gets wrong")
+        elif self.naive_failure is not None:
+            raise ValueError("naive_failure is only for tier 3 tasks")
         return self
 
 

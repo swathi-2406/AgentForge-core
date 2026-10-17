@@ -110,3 +110,28 @@ def test_plan_and_task_files_agree():
 ])
 def test_in_scope(loc, scope, ok):
     assert in_scope(loc, scope) is ok
+
+
+# ---------- Day 8: tier 3 files ----------
+
+T3 = [t for t in TASKS if t.tier == 3]
+
+
+def test_tier3_filings_are_an_amendment_and_its_original():
+    entries = {e["id"]: e for e in yaml.safe_load(MANIFEST.read_text(encoding="utf-8"))}
+    problems = []
+    for t in T3:
+        amend = [f for f in t.filings if entries.get(f, {}).get("role") == "amendment"]
+        if len(amend) != 1 or entries[amend[0]].get("amends") not in t.filings:
+            problems.append(f"{t.id}: {t.filings} is not [amendment, the original it amends]")
+    assert not problems, "\n".join(problems)
+
+
+def test_tier3_refs_are_verified_tier3_rows():
+    problems = []
+    for t in T3:
+        for ref in t.ground_truth_ref:
+            row = GT.get(ref)
+            if row is None or row["status"] != "verified" or row["tier"] != "3":
+                problems.append(f"{t.id}: {ref} must be a verified tier 3 row, got {row}")
+    assert not problems, "\n".join(problems)

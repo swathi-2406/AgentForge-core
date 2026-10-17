@@ -108,3 +108,47 @@ def test_must_flag_accepts_any_of_several_locations():
 def test_empty_location_rejected(loc):
     with pytest.raises(ValidationError):
         EvalTask.model_validate(good(expected={"must_flag": [{"type": "other", "location": loc}]}))
+
+
+# ---------- Day 8: tier 3 ----------
+
+def t3(**over):
+    task = {"id": "t3_demo_contradiction", "tier": 3, "filings": ["demo_amend1", "demo_original"],
+            "task": "Check whether this amendment contradicts the original agreement.",
+            "naive_failure": "A plain diff reports every intended ratio change as a contradiction.",
+            "expected": {"must_flag": [{"type": ["term_mismatch", "dangling_reference"],
+                                        "location": "1.01", "filing": "demo_amend1"}]},
+            "ground_truth_ref": ["DEMO-4"], "optimal_steps": 5}
+    task.update(over)
+    return task
+
+
+def test_tier3_task_loads():
+    t = EvalTask.model_validate(t3())
+    assert t.expected.must_flag[0].accepted_types() == {"term_mismatch", "dangling_reference"}
+
+
+def test_tier3_clean_task_with_trap_loads():
+    EvalTask.model_validate(t3(expected={"must_flag": [], "must_not_flag": [
+        {"location": "7.14", "filing": "demo_amend1", "reason": "Deliberate covenant relief."}]},
+        ground_truth_ref=[]))
+
+
+@pytest.mark.parametrize("bad, why", [
+    ({"naive_failure": None}, "no naive_failure"),
+    ({"naive_failure": "diff fails"}, "naive_failure too short"),
+    ({"filings": ["demo_amend1"]}, "only one filing"),
+    ({"expected": {"must_flag": [{"type": "other", "location": "1.01"}]}}, "must_flag without filing"),
+    ({"expected": {"must_flag": [], "must_not_flag": [{"location": "7.14", "reason": "intended"}]},
+      "ground_truth_ref": []}, "trap without filing"),
+    ({"expected": {"must_flag": [{"type": "other", "location": "1.01", "filing": "elsewhere"}]}},
+     "filing not in the task"),
+])
+def test_bad_tier3_tasks_rejected(bad, why):
+    with pytest.raises(ValidationError):
+        EvalTask.model_validate(t3(**bad))
+
+
+def test_naive_failure_only_for_tier3():
+    with pytest.raises(ValidationError, match="only for tier 3"):
+        EvalTask.model_validate(good(naive_failure="A plain diff reports every change as a problem."))
