@@ -34,7 +34,7 @@ if TYPE_CHECKING:  # type hints only, so tracing never imports the agent
 
 log = logging.getLogger(__name__)
 
-SCHEMA_VERSION = "day5-draft"
+SCHEMA_VERSION = "v1"
 MAX_OUTPUT_BYTES = 200_000  # per step, in the JSON trace
 PREVIEW_CHARS = 2_000
 RunStatus = Literal["running", "completed", "failed"]
