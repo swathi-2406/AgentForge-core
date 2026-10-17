@@ -37,3 +37,22 @@
   sha256: d968c5f4d91f74a7e716c63f60aa4d467112f1f23bc0fe5730024e2c1b3154a6
   bytes: 138474
   fetched_at: '2026-10-04T15:33:48+00:00'
+- id: martin_credit_original
+  accession: 0001193125-23-018450
+  url: https://www.sec.gov/Archives/edgar/data/1176334/000119312523018450/d415175dex101.htm
+  tier: hard
+  role: original
+  cik: '1176334'
+  local_path: data/contracts/raw/0001193125-23-018450_d415175dex101.htm
+  sha256: 317db8306f11b4b787f3337aea60efa83cd3a2aebbb1a51701287900f137fece
+  bytes: 860428
+- id: martin_credit_amend1
+  accession: 0001176334-25-000022
+  url: https://www.sec.gov/Archives/edgar/data/1176334/000117633425000022/martin-firstamendmenttofou.htm
+  tier: hard
+  role: amendment
+  amends: martin_credit_original
+  cik: '1176334'
+  local_path: data/contracts/raw/0001176334-25-000022_martin-firstamendmenttofou.htm
+  sha256: 25678968cc18bdde53d41730088bc8a80941c518b2f6d92883c50b46ae29c815
+  bytes: 73254

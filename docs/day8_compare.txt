@@ -1,0 +1,330 @@
+──────────────────────────────────────────────────────────────────────
+  1.01   redwire_credit_amend1  vs  redwire_credit_original
+──────────────────────────────────────────────────────────────────────
+ORIGINAL   (whole section 1.01; try a defined term to narrow it)
+  Section 1.01. Defined Terms.
+
+As used in this Agreement, the following terms shall have the meanings set forth below: "Acceptable Discount" has the meaning set forth in Section 2.05(a)(v)(D)(2).
+
+"Acceptable Prepayment Amount" has the meaning set forth in Section 2.05(a)(v)(D)(3).
+
+"Acceptance and Prepayment Notice" means a written notice of the Lead Borrower's acceptance
+
+of the Acceptable Discount in substantially the form of Exhibit E-3.
+
+"Acceptance Date" has the meaning set forth in Section 2.05(a)(v)(D)(2).
+
+"Acquisition" has the meaning set forth in the preliminary statements to this Agreement.
+
+"Acquisition Agreement" has the meaning set forth in the preliminary statements to this Agreement.
+
+"Additional Lender" has the meaning set forth in Section 2.14(c).
+
+"Additional Refinancing Lender" means, at any time, any bank, financial institution or other institutional lender or investor (other than any such bank, financial institution or other institutional lender or investor that is a Lender at such time) that agrees to provide any portion of Credit Agreement Refinancing Indebtedness pursuant to a Refinancing Amendment in accordance with Section 2.15 (including any Sponsor-Controlled Affiliated Lender); provided that each Additional Refinancing Lender shall be subject to the approval of (i) the Administrative Agent, such approval not to be unreasonably withheld, conditioned, denied or delayed, and solely to the extent such consent would be required pursuant to Section 10.07 with respect to an assignment to such Person, to the extent that each such Additional Refinancing Lender is not then an existing Lender, an Affiliate of a then existing Lender, an Approved Fund, or (subject to the same restrictions set forth in Section 10.07(k) as it would otherwise be subject to …[+259006 chars]
+
+AMENDMENT  hit 1/1
+  …ness or constituting Required Lenders, as applicable), hereby agree with respect to the Credit Agreement that, in each case, upon the effectiveness of this Amendment:
+
+(a) Amendments of Section 1.01. Section 1.01
+  NEW TEXT → is hereby revised by:
+
+(i) Inserting the following definitions in the appropriate alphabetical order therein:
+
+"DSS Acquisition" means Lead Borrower's acquisition of Deployable Space Systems, Inc. pursuant to the DSS Acquisition Agreement.
+
+"DSS Acquisition Agreement" means that certain Securities Purchase Agreement, dated as of February 17, 2021, by and among Cosmos Acquisition, LLC, as the buyer, the Persons listed therein as sellers and the representative of the sellers party thereto, as amended, modified, supplemented or waived from time to time.
+
+"First Amendment" means the First Amendment to Credit Agreement dated as of February 17, 2021, among Lead Borrower, Parent, the other Guarantors party thereto, the financial institutions party thereto as Lenders and the Administrative Agent.
+
+"First Amendment Effective Date" has the meaning assigned to such term in the First Amendment.
+
+"First Amendment Term Commitment" has the meaning assigned to such term in the First Amendment.
+
+"First Amendment Term Lender" means each Lender described in clause (b) of the definition of Lender.
+
+"First Amendment Term Loans" has the meaning assigned to such term in the First Amendment. For the avoidance of doubt, the First Amendment Term Loans shall constitute Incremental Term Loans.
+
+"First Amendment Transactions" has the meaning assigned to such term in the First Amendment.
+
+(ii) Amending and restating the defined terms set forth below to read in their entirety as follows:
+
+"Lenders" (a) has the meaning set forth in the introductory paragraph to this Agreement, (b) effective as of the First Amendment Effective Date, includes the Persons listed on Schedule I to the First Amendment and (c) as the context requires, includes, in each case, their respective successors and assigns as permitt …[+1199 chars]
+
+DIFF
+  [-Section 1.01. Defined Terms. As used in this Agreement,-] {+is hereby revised by: (i) Inserting+} the following [-terms shall have-] {+definitions in+} the [-meanings set forth below: "Acceptable Discount" has-] {+appropriate alphabetical order therein: "DSS Acquisition" means Lead Borrower's acquisition of Deployable Space Systems, Inc. pursuant to+} the [-meaning set forth in Section 2.05(a)(v)(D)(2). "Acceptable Prepayment Amount" has-] {+DSS Acquisition Agreement. "DSS Acquisition Agreement" means that certain Securities Purchase Agreement, dated as of February 17, 2021, by and among Cosmos Acquisition, LLC, as+} the [-meaning set forth in Section 2.05(a)(v)(D)(3). "Acceptance-] {+buyer, the Persons listed therein as sellers+} and [-Prepayment Notice" means a written notice-] {+the representative+} of the [-Lead Borrower's acceptance of the Acceptable Discount in substantially the form of Exhibit E-3. "Acceptance Date" has the meaning set forth in Section 2.05(a)(v)(D)(2). "Acquisition" has the meaning set forth in the preliminary statements to this Agreement. "Acquisition Agreement" has the meaning set forth in the preliminary statements to this Agreement. "Additional Lender" has the meaning set forth in Section 2.14(c). "Additional Refinancing Lender" means, at any time, any bank, financial institution-] {+sellers party thereto, as amended, modified, supplemented+} or [-other institutional lender or investor (other than any such bank, financial institution or other institutional lender or investor that is a Lender at such time) that agrees to provide any portion of Credit Agreement Refinancing Indebtedness pursuant to a Refinancing Amendment in accordance with Section 2.15 (including any Sponsor-Controlled Affiliated Lender); provided that each Additional Refina …[+259472 chars]
+
+CHECKS
+  • uses “DSS Acquisition”, not defined in the original (closest: ['Acquisition'])
+  • uses “DSS Acquisition Agreement”, not defined in the original (closest: ['Acquisition Agreement'])
+  • uses “First Amendment”, not defined in the original
+  • uses “First Amendment Effective Date”, not defined in the original
+  • uses “First Amendment Term Commitment”, not defined in the original
+  • uses “First Amendment Term Lender”, not defined in the original
+  • uses “First Amendment Term Loans”, not defined in the original
+  • uses “First Amendment Transactions”, not defined in the original
+  • uses “Lenders”, not defined in the original (closest: ['Lender'])
+
+YOUR CALL  contradiction / intended change / not amended
+
+──────────────────────────────────────────────────────────────────────
+  2.01(a)(i)   redwire_credit_amend1  vs  redwire_credit_original
+──────────────────────────────────────────────────────────────────────
+ORIGINAL
+  (i) Initial Term Loan Borrowings. Subject to the terms and conditions expressly set forth herein, each Term Lender severally agrees to make to the Lead Borrower on the Closing Date one or more Term Borrowings denominated in Dollars in an aggregate amount not to exceed at any time outstanding the amount of such Term Lender's Term Commitment. Amounts borrowed under this Section 2.01(a) and repaid or prepaid may not be re-borrowed. Term Loans may be Base Rate Loans or Eurocurrency Rate Loans, as further provided herein.
+
+AMENDMENT  hit 1/1
+  …Date by the First Amendment Term Lenders to the Borrowers pursuant to the First Amendment), Refinancing Term Loan or Replacement Term Loan, as the context may require.
+
+(b) Amendment of Section 2.01. Section 2.01(a)(i)
+  NEW TEXT → "(a) Term Borrowings.
+
+(i) Term Loan Borrowings. Subject to the terms and conditions expressly set forth herein, each Term Lender severally agrees to make to the Lead Borrower on the Closing Date one or more Term Borrowings denominated in Dollars in an aggregate amount not to exceed at any time outstanding the amount of such Term Lender's Term Commitment. Subject to the terms and conditions expressly set forth herein, with respect to any First Amendment Term Lender having a Term Commitment as of the First Amendment Effective Date, each First Amendment Term Lender agrees to make a Term Loan to the Lead Borrower on the First Amendment
+
+Effective Date in the principal amount not to exceed its Term Commitment as of the First Amendment Effective Date. Amounts borrowed under this Section 2.01(a)(i) and repaid or prepaid may not be re-borrowed. Term Loans may be Base Rate Loans or Eurocurrency Rate Loans, as further provided herein."
+
+DIFF
+  {+"(a) Term Borrowings.+} (i) [-Initial-] Term Loan Borrowings. Subject to … such Term Lender's Term Commitment. {+Subject to the terms and conditions expressly set forth herein, with respect to any First Amendment Term Lender having a Term Commitment as of the First Amendment Effective Date, each First Amendment Term Lender agrees to make a Term Loan to the Lead Borrower on the First Amendment Effective Date in the principal amount not to exceed its Term Commitment as of the First Amendment Effective Date.+} Amounts borrowed under this Section [-2.01(a)-] {+2.01(a)(i)+} and repaid or prepaid may … Rate Loans, as further provided [-herein.-] {+herein."+}
+
+CHECKS
+  • nothing missing from the original
+
+YOUR CALL  contradiction / intended change / not amended
+
+──────────────────────────────────────────────────────────────────────
+  2.02(a)   redwire_credit_amend1  vs  redwire_credit_original
+──────────────────────────────────────────────────────────────────────
+ORIGINAL
+  (a) Each Term Borrowing, each Revolving Credit Borrowing, each conversion of Term Loans or Revolving Credit Loans from one Type to the other, and each continuation of Eurocurrency Rate Loans shall be made upon the Borrower's delivery of a written Committed Loan Notice, appropriately completed and signed by a Responsible Officer of the Lead Borrower to the Administrative Agent (provided that the notices in respect of the Borrowings (i) on the Closing Date may be conditioned on the closing of the Acquisition and (ii) in connection with a Permitted Acquisition or other permitted Investment may be conditioned on the closing of the applicable Permitted Acquisition or other permitted Investment). Each such notice must be received by the Administrative Agent not later than 2:00 p.m., (I) three Business Days prior to the requested date of any Borrowing or continuation of Eurocurrency Rate Loans or any conversion of Base Rate Loans to Eurocurrency Rate Loans and (II) three Business Day prior to the requested date of any Borrowing of Base Rate Loans or any conversion of Eurocurrency Rate Loans to Base Rate Loans; provided that the notice referred to in clause (I) above may be delivered no later than three (3) Business Day prior to the Closing Date in the case of initial Credit Extensions. Except as otherwise provided in Section 2.14, each Borrowing of, conversion to or continuation of Eurocurrency Rate Loans shall be in a minimum principal amount of $100,000 or a whole multiple of $100,000 in excess thereof. Except as
+
+otherwise provided herein, each Borrowing of or conversion to Base Rate Loans shall be in a minimum principal amount of $100,000 or a whole multiple of $100,000 in excess thereof. Each Committed Loan Notice (whether telephonic or written) shall specify (i) whether  …[+1984 chars]
+
+AMENDMENT  hit 1/2
+  …1(a)(i) and repaid or prepaid may not be re-borrowed. Term Loans may be Base Rate Loans or Eurocurrency Rate Loans, as further provided herein."
+
+(c) Amendment of Section 2.02. The second sentence of Section 2.02(a)
+  NEW TEXT → "Each such notice must be received by the Administrative Agent not later than 2:00 p.m., (I) three (3) Business Days prior to the requested date of any Borrowing or continuation of Eurocurrency Rate Loans or any conversion of Base Rate Loans to Eurocurrency Rate Loans, and (II) three (3) Business Days prior to the requested date of any Borrowing of Base Rate Loans or any conversion of Eurocurrency Loans to Base Rate Loans; provided that the notice referred to in clause (I) above may be delivered no later than (x) three
+
+(3) Business Day prior to the Closing Date in the case of initial Credit Extensions and (y) one
+
+(1) Business Day prior to the First Amendment Effective Date in the case of the First Amendment Term Loans."
+
+DIFF
+  [-(a) Each Term Borrowing, each Revolving Credit Borrowing, each conversion of Term Loans or Revolving Credit Loans from one Type to the other, and each continuation of Eurocurrency Rate Loans shall be made upon the Borrower's delivery of a written Committed Loan Notice, appropriately completed and signed by a Responsible Officer of the Lead Borrower to the Administrative Agent (provided that the notices in respect of the Borrowings (i) on the Closing Date may be conditioned on the closing of the Acquisition and (ii) in connection with a Permitted Acquisition or other permitted Investment may be conditioned on the closing of the applicable Permitted Acquisition or other permitted Investment). Each-] {+"Each+} such notice must be received … than 2:00 p.m., (I) three {+(3)+} Business Days prior to the … Rate Loans to Eurocurrency Rate [-Loans-] {+Loans,+} and (II) three {+(3)+} Business [-Day-] {+Days+} prior to the requested date … or any conversion of Eurocurrency [-Rate-] Loans to Base Rate Loans; … be delivered no later than {+(x)+} three (3) Business Day prior … the case of initial Credit [-Extensions. Except as otherwise provided in Section 2.14, each Borrowing of, conversion to or continuation of Eurocurrency Rate Loans shall be in a minimum principal amount of $100,000 or a whole multiple of $100,000 in excess thereof. Except as otherwise provided herein, each Borrowing of or conversion to Base Rate Loans shall be in a minimum principal amount of $100,000 or a whole multiple of $100,000 in excess thereof. Each Committed Loan Notice (whether telephonic or written) shall specify (i) whether the Lead Borrower is requesting a Term Borrowing, a Revolving Credit Borrowing, a conversion of Term Loans or Revolving Credit Loans from-] {+Extensions and (y)+} one [-Type-] {+ …[+1957 chars]
+
+CHECKS
+  • nothing missing from the original
+
+AMENDMENT  hit 2/2
+  …irst Amendment Effective Date.
+
+Section 3.02. Committed Loan Notice. The Administrative Agent shall have received a Committed Loan Notice with respect to the First Amendment Term Loans as required by Section 2.02(a)
+  NEW TEXT → of the Credit Agreement (or such notice as shall have been deemed given in accordance with Section 2.02(a) of the Credit Agreement).
+
+Section 3.03. Representations and Warranties. The representations and warranties of each Loan Party set forth in Article V of the Credit Agreement and in each other Loan Document shall be true and correct in all material respects on and as of the First Amendment Effective Date with the same effect as though made on and as of such date, except to the extent such representations and warranties expressly relate to an earlier date, in which case they shall be true and correct in all material respects as of such earlier date (except where such representations and warranties are already qualified by materiality, in which case such representation and warranty shall be accurate in all respects).
+
+Section 3.04. Event of Default. No Event of Default exists or shall exist after giving effect to the First Amendment Term Commitments.
+
+Section 3.05 Corporate Documents and Officer Certification. The Administrative Agent shall have received (A) such certificates of good standing (to the extent such concept exists) and corporate charters from the applicable secretary of state of the state of organization of each Loan Party, certificates of resolutions or other corporate or limited liability company action approving and authorizing the Borrowing of the First Amendment Term Loans, the reaffirmation of Obligations, and the execution, delivery and performance of this Amendment and the other Loan Documents which such Loan Party is executing as of the First Amendment Effective Date and prior to the funding of the First Amendment Term Loans, certified as of the First Amendment Effective Date by such Loan Party as being in full force and effect without modificati …[+1199 chars]
+
+DIFF
+  [-(a) Each Term Borrowing,-] {+of the Credit Agreement (or such notice as shall have been deemed given in accordance with Section 2.02(a) of the Credit Agreement). Section 3.03. Representations and Warranties. The representations and warranties of+} each [-Revolving-] {+Loan Party set forth in Article V of the+} Credit [-Borrowing,-] {+Agreement and in+} each [-conversion-] {+other Loan Document shall be true and correct in all material respects on and as+} of [-Term Loans or Revolving Credit Loans from one Type-] {+the First Amendment Effective Date with the same effect as though made on and as of such date, except+} to the [-other,-] {+extent such representations+} and [-each continuation of Eurocurrency Rate Loans-] {+warranties expressly relate to an earlier date, in which case they+} shall be [-made upon-] {+true and correct in all material respects as of such earlier date (except where such representations and warranties are already qualified by materiality, in which case such representation and warranty shall be accurate in all respects). Section 3.04. Event of Default. No Event of Default exists or shall exist after giving effect to+} the [-Borrower's-] {+First Amendment Term Commitments. Section 3.05 Corporate Documents and Officer Certification. The Administrative Agent shall have received (A) such certificates of good standing (to the extent such concept exists) and corporate charters from the applicable secretary of state of the state of organization of each Loan Party, certificates of resolutions or other corporate or limited liability company action approving and authorizing the Borrowing of the First Amendment Term Loans, the reaffirmation of Obligations, and the execution,+} delivery {+and performance+} of {+this Amendment and the other Loan Documents wh …[+4962 chars]
+
+CHECKS
+  • nothing missing from the original
+
+YOUR CALL  contradiction / intended change / not amended
+
+──────────────────────────────────────────────────────────────────────
+  2.06(b)   redwire_credit_amend1  vs  redwire_credit_original
+──────────────────────────────────────────────────────────────────────
+ORIGINAL
+  (b) Mandatory. The Initial Term Commitments of each Term Lender shall be automatically and permanently reduced to $0 upon the funding of the Initial Term Loans to be made by such Term Lender on the Closing Date. The Delayed Draw Term Loan Commitments of each Term Lender shall be automatically and permanently reduced by the aggregate amount of any Delayed Draw Term Loan funded up by such Term Lender on the date such Delayed Draw Term Loan is funded. The Revolving Credit Commitments of each Revolving Credit Lender shall automatically and permanently terminate on the Maturity Date.
+
+AMENDMENT  hit 1/1
+  …Date in the case of initial Credit Extensions and (y) one
+
+(1) Business Day prior to the First Amendment Effective Date in the case of the First Amendment Term Loans."
+
+(d) Amendment of Section 2.06. Section 2.06(b)
+  NEW TEXT → "Mandatory. (i) The Initial Term Commitments of each Term Lender shall be automatically and permanently reduced to $0 upon the funding of the Initial Term Loans to be made by such Term Lender on the Closing Date, (ii) the Delayed Draw Term Loan Commitments of each Term Lender shall be automatically and permanently reduced by the aggregate amount of any Delayed Draw Term Loan funded up by such Term Lender on the date such Delayed Draw Term Loan is funded and (iii) the First Amendment Term Commitments of each First Amendment Term Lender shall be automatically and permanently reduced to $0 upon the funding of the First Amendment Term Loans to be made by such First Amendment Term Lender on the First Amendment Effective Date. The Revolving Credit Commitments of each Revolving Credit Lender shall automatically and permanently terminate on the Maturity Date."
+
+DIFF
+  [-(b) Mandatory.-] {+"Mandatory. (i)+} The Initial Term Commitments of … Term Lender on the Closing [-Date. The-] {+Date, (ii) the+} Delayed Draw Term Loan Commitments … Delayed Draw Term Loan is [-funded.-] {+funded and (iii) the First Amendment Term Commitments of each First Amendment Term Lender shall be automatically and permanently reduced to $0 upon the funding of the First Amendment Term Loans to be made by such First Amendment Term Lender on the First Amendment Effective Date.+} The Revolving Credit Commitments of … permanently terminate on the Maturity [-Date.-] {+Date."+}
+
+CHECKS
+  • nothing missing from the original
+
+YOUR CALL  contradiction / intended change / not amended
+
+──────────────────────────────────────────────────────────────────────
+  2.07(a)   redwire_credit_amend1  vs  redwire_credit_original
+──────────────────────────────────────────────────────────────────────
+ORIGINAL
+  (a) Term Loans. The Borrowers shall repay to the Administrative Agent for the ratable account of the Appropriate Lenders (A) on the last Business Day of each March, June, September and December, commencing with the first full fiscal quarter after the Closing Date, an aggregate principal amount equal to the sum of (i) 0.25% of the aggregate principal amount of all Initial Term Loans outstanding on the Closing Date and (ii) 0.25% of the aggregate principal amount of all funded Delayed Draw Term Loans (which payments shall be reduced as a result of the application of prepayments in accordance with the order of priority set forth in Sections 2.05 or 10.07 (including pursuant to Dutch auctions or open market purchases, but for the avoidance of doubt without a reduction in the outstanding principal amount of any Loans not prepaid pursuant to such Dutch auction or open market purchase, as applicable)) and (B) on the Maturity Date for the Initial Term Loans and Delayed Draw Term Loans, the aggregate principal amount of all Initial Term Loans and Delayed Draw Term Loans outstanding on such date.
+
+AMENDMENT  hit 1/1
+  …e First Amendment Effective Date. The Revolving Credit Commitments of each Revolving Credit Lender shall automatically and permanently terminate on the Maturity Date."
+
+(e) Amendment of Section 2.07. Section 2.07(a)
+  NEW TEXT → "Term Loans. The Borrowers shall repay to the Administrative Agent for the ratable account of the Appropriate Lenders (A) on the last Business Day of each March, June, September and December, commencing with the first full fiscal quarter after the Closing Date, an aggregate principal amount equal to the sum of (i) 0.25% of the aggregate principal amount of all Initial Term Loans outstanding on the Closing Date, and (ii) 0.25% of the aggregate principal amount of all funded Delayed Draw Term Loans (which payments shall be reduced as a result of the application of prepayments in accordance with the order of priority set forth in Sections 2.05 or 10.07 (including pursuant to Dutch auctions or open market purchases, but for the avoidance of doubt without a reduction in the outstanding principal amount of any Loans not prepaid pursuant to such Dutch auction or open market purchase, as applicable)), (B) on the last Business Day of each March, June, September and December, commencing with the first full fiscal quarter after the First Amendment Effective Date, an aggregate principal amount equal to 0.25% of the aggregate principal amount of all First Amendment Term Loans outstanding on the First Amendment Effective Date (which payments shall be reduced as a
+
+result of the application of prepayments in accordance with the order of priority set forth in Sections 2.05 or 10.07 (including pursuant to Dutch auctions or open market purchases, but for the avoidance of doubt without a reduction in the outstanding principal amount of any Loans not prepaid pursuant to such Dutch auction or open market purchase, as applicable)) and (C) on the Maturity Date for the Initial Term Loans, the Delayed Draw Term Loans and the Firs
+
+DIFF
+  [-(a) Term-] {+"Term+} Loans. The Borrowers shall repay … Loans outstanding on the Closing [-Date-] {+Date,+} and (ii) 0.25% of the … or open market purchase, as {+applicable)), (B) on the last Business Day of each March, June, September and December, commencing with the first full fiscal quarter after the First Amendment Effective Date, an aggregate principal amount equal to 0.25% of the aggregate principal amount of all First Amendment Term Loans outstanding on the First Amendment Effective Date (which payments shall be reduced as a result of the application of prepayments in accordance with the order of priority set forth in Sections 2.05 or 10.07 (including pursuant to Dutch auctions or open market purchases, but for the avoidance of doubt without a reduction in the outstanding principal amount of any Loans not prepaid pursuant to such Dutch auction or open market purchase, as+} applicable)) and [-(B)-] {+(C)+} on the Maturity Date for the Initial Term [-Loans and Delayed Draw Term-] Loans, the [-aggregate principal amount of all Initial Term Loans and-] Delayed Draw Term Loans [-outstanding on such date.-] {+and the Firs+}
+
+CHECKS
+  • nothing missing from the original
+
+YOUR CALL  contradiction / intended change / not amended
+
+──────────────────────────────────────────────────────────────────────
+  6.15(a)   redwire_credit_amend1  vs  redwire_credit_original
+──────────────────────────────────────────────────────────────────────
+ORIGINAL
+  (a) The proceeds of the Initial Term Loans will be applied, together with any amount drawn under the Revolving Credit Facility and certain cash on the balance sheet of the Parent and its Subsidiaries,
+
+(i) on the Closing Date to finance a portion of the Acquisition, (ii) on the Closing Date to pay Transaction Expenses and (iii) on or after the Closing Date for working capital and other general corporate purposes, including financing of Permitted Acquisitions, Capital Expenditures and other transactions not prohibited by the Loan Documents.
+
+AMENDMENT  hit 1/1
+  …ment Term Loans, the aggregate principal amount of all Initial Term Loans, the Delayed Draw Term Loans and the First Amendment Term Loans outstanding on such date."
+
+(f) Amendment of Section 6.15(a). Section 6.15(a)
+  NEW TEXT → "(i) The proceeds of the Initial Term Loans will be applied, together with any amount drawn under the Revolving Credit Facility and certain cash on the balance sheet of the Parent and its Subsidiaries, (i) on the Closing Date to finance a portion of the Acquisition, (ii) on the Closing Date to pay Transaction Expenses and (iii) on or after the Closing Date for working capital and other general corporate purposes, including financing of Permitted Acquisitions, Capital Expenditures and other transactions not prohibited by the Loan Documents and (ii) the proceeds of the First Amendment Term Loans will be applied (A) on the First Amendment Effective Date to finance and pay consideration for the DSS Acquisition and (B) on the First Amendment Effective Date to pay fees and expenses incurred in connection with the DSS Acquisition and the other First Amendment Transactions."
+
+DIFF
+  [-(a)-] {+"(i)+} The proceeds of the Initial … not prohibited by the Loan [-Documents.-] {+Documents and (ii) the proceeds of the First Amendment Term Loans will be applied (A) on the First Amendment Effective Date to finance and pay consideration for the DSS Acquisition and (B) on the First Amendment Effective Date to pay fees and expenses incurred in connection with the DSS Acquisition and the other First Amendment Transactions."+}
+
+CHECKS
+  • nothing missing from the original
+
+YOUR CALL  contradiction / intended change / not amended
+
+──────────────────────────────────────────────────────────────────────
+  Lenders   redwire_credit_amend1  vs  redwire_credit_original
+──────────────────────────────────────────────────────────────────────
+ORIGINAL   (“Lenders” is not defined in the original. Closest defined terms: ['Lender'])
+  —
+
+AMENDMENT  hit 1/1
+  …ns.
+
+"First Amendment Transactions" has the meaning assigned to such term in the First Amendment.
+
+(ii) Amending and restating the defined terms set forth below to read in their entirety as follows:
+
+"Lenders"
+  NEW TEXT → nt. For the avoidance of doubt, the First Amendment Term Loans shall constitute Incremental Term Loans.
+
+"First Amendment Transactions" has the meaning assigned to such term in the First Amendment.
+
+(ii) Amending and restating the defined terms set forth below to read in their entirety as follows:
+
+"Lenders" (a) has the meaning set forth in the introductory paragraph to this Agreement, (b) effective as of the First Amendment Effective Date, includes the Persons listed on Schedule I to the First Amendment and (c) as the context requires, includes, in each case, their respective successors and assigns as
+
+CHECKS
+  • uses “First Amendment Transactions”, not defined in the original
+  • uses “Lenders”, not defined in the original (closest: ['Lender'])
+
+YOUR CALL  contradiction / intended change / not amended
+
+──────────────────────────────────────────────────────────────────────
+  Loan Documents   martin_credit_amend1  vs  martin_credit_original
+──────────────────────────────────────────────────────────────────────
+ORIGINAL   (“Loan Documents” is not defined in the original. Closest defined terms: none)
+  —
+
+AMENDMENT  hit 1/1
+  …to Definition of "Loan Documents". Section 1.01 of the Existing Credit Agreement shall be amended to amend and restate the definition of "Loan Documents" in its entirety to read in full as follows:
+
+"Loan Documents"
+  NEW TEXT → "Loan Documents" means this Agreement, the First Amendment, the Intercreditor Agreement, each Note (including any amended and restated Note), the Master Consent to Assignment, each of the Collateral Documents, the Agent/Arranger Fee Letters, the Engagement Letter, each Borrowing Notice, each Compliance Certificate, the Guaranties, each Letter of Credit Application and each other agreement, document or instrument executed and delivered by a Loan Party from time to time in connection with this Agreement and the Notes.
+
+CHECKS
+  • uses “Loan Documents”, not defined in the original
+
+YOUR CALL  contradiction / intended change / not amended
+
+──────────────────────────────────────────────────────────────────────
+  First Amendment   martin_credit_amend1  vs  martin_credit_original
+──────────────────────────────────────────────────────────────────────
+ORIGINAL   (“First Amendment” is not defined in the original. Closest defined terms: none)
+  —
+
+AMENDMENT  hit 1/1
+  …otes.
+
+(b) New Definitions. Section 1.01 of the Existing Credit Agreement shall be further amended to add thereto, in alphabetical order, the following definition that shall read in full as follows:
+
+"First Amendment"
+  NEW TEXT → "First Amendment" means that certain First Amendment to Fourth Amended and Restated Credit Agreement dated as of February 13, 2025, by and among the Borrower, the MLP, the other Loan Parties party thereto, the Lenders party thereto, the Administrative Agent and the Collateral Agent.
+
+CHECKS
+  • uses “First Amendment”, not defined in the original
+
+YOUR CALL  contradiction / intended change / not amended
+
+──────────────────────────────────────────────────────────────────────
+  7.14(a)   martin_credit_amend1  vs  martin_credit_original
+──────────────────────────────────────────────────────────────────────
+ORIGINAL
+  (a) Interest Coverage Ratio. Permit the Interest Coverage Ratio as of the end of any fiscal quarter to be less than 2.00 to 1.00.
+
+AMENDMENT  hit 1/1
+  …ated as of February 13, 2025, by and among the Borrower, the MLP, the other Loan Parties party thereto, the Lenders party thereto, the Administrative Agent and the Collateral Agent.
+
+(c) Amendment to Section 7.14(a)
+  NEW TEXT → (a) Interest Coverage Ratio. Permit the Interest Coverage Ratio as of the end of any fiscal quarter to be less than:
+
+(i) with respect to each fiscal quarter from and after the Restatement Effective Date through and including the fiscal quarter ended December 31, 2024, 2.00 to 1.00;
+
+(ii) with respect to each of the fiscal quarters ending March 31, 2025, June 30, 2025 and September 30, 2025, 1.75 to 1.00; and
+
+(iii) with respect to each fiscal quarter ending there
+
+DIFF
+  (a) Interest Coverage Ratio. Permit … fiscal quarter to be less [-than-] {+than: (i) with respect to each fiscal quarter from and after the Restatement Effective Date through and including the fiscal quarter ended December 31, 2024,+} 2.00 to [-1.00.-] {+1.00; (ii) with respect to each of the fiscal quarters ending March 31, 2025, June 30, 2025 and September 30, 2025, 1.75 to 1.00; and (iii) with respect to each fiscal quarter ending there+}
+
+CHECKS
+  • nothing missing from the original
+
+YOUR CALL  contradiction / intended change / not amended
+
+──────────────────────────────────────────────────────────────────────
+  7.14(c)   martin_credit_amend1  vs  martin_credit_original
+──────────────────────────────────────────────────────────────────────
+ORIGINAL
+  (c) First Lien Leverage Ratio. Permit the First Lien Leverage Ratio as of the end of any fiscal quarter to be greater than 1.50 to 1.00.
+
+AMENDMENT  hit 1/1
+  …ach of the fiscal quarters ending March 31, 2025, June 30, 2025 and September 30, 2025, 1.75 to 1.00; and
+
+(iii) with respect to each fiscal quarter ending thereafter, 2.00 to 1.00.
+
+(d) Amendment to Section 7.14(c)
+  NEW TEXT → (c) First Lien Leverage Ratio. Permit the First Lien Leverage Ratio as of the end of any fiscal quarter to be greater than:
+
+(i) with respect to each fiscal quarter from and after the Restatement Effective Date through and including the fiscal quarter ended December 31, 2024, 1.50 to 1.00;
+
+(ii) with respect to each of the fiscal quarters ending March 31, 2025, June 30, 2025 and September 30, 2025, 1.25 to 1.00; and
+
+(iii) with respect to each fiscal quarter ending thereaf
+
+DIFF
+  (c) First Lien Leverage Ratio. … fiscal quarter to be greater [-than-] {+than: (i) with respect to each fiscal quarter from and after the Restatement Effective Date through and including the fiscal quarter ended December 31, 2024,+} 1.50 to [-1.00.-] {+1.00; (ii) with respect to each of the fiscal quarters ending March 31, 2025, June 30, 2025 and September 30, 2025, 1.25 to 1.00; and (iii) with respect to each fiscal quarter ending thereaf+}
+
+CHECKS
+  • nothing missing from the original
+
+YOUR CALL  contradiction / intended change / not amended
+
+──────────────────────────────────────────────────────────────────────
+  7.14(b)   martin_credit_amend1  vs  martin_credit_original
+──────────────────────────────────────────────────────────────────────
+ORIGINAL
+  (b) Total Leverage Ratio. Permit the Total Leverage Ratio as of the end of any fiscal quarter to be greater than (i) with respect to each fiscal quarter from and after the Restatement Effective Date until the fiscal quarter ending December 31, 2024, 4.75 to 1.00 and (ii) with respect to each fiscal quarter ending thereafter, 4.50 to 1.00.
+
+AMENDMENT
+  not mentioned in the amendment. If you expected it, search by hand.
+
+YOUR CALL  contradiction / intended change / not amended
